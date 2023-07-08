@@ -2,7 +2,9 @@ import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
-import { BrowserRouter as Navigate, Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from "framer-motion";
+
 import Home from './pages/Home'
 import Portfolio from './pages/Portfolio'
 import Register from './pages/Register'
@@ -11,22 +13,20 @@ import Navbar from './components/Navbar'
 import NoMatch from './pages/Nomatch'
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const location = useLocation();
 
   return (
     <>
       <Navbar />
-
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='portfolio' element={<Portfolio />} />
-        <Route path='register' element={<Register />} />
-        <Route path='login' element={<Login />} />
-        <Route path="*" element={<NoMatch />} />
-
-
-
-      </Routes>
+      <AnimatePresence mode="wait">
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='portfolio' element={<Portfolio />} />
+          <Route path='register' element={<Register />} />
+          <Route path='login' element={<Login />} />
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
+      </AnimatePresence>
       {/* <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
