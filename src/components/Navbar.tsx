@@ -4,7 +4,10 @@ import './navbar.css'
 import hamburger from '/hamburger.svg'
 import logo from '/logo.svg'
 
+
 export default function Navbar() {
+
+
   const [showNavbar, setShowNavbar] = useState(false)
 
   const handleShowNavbar = () => {
@@ -56,6 +59,9 @@ export default function Navbar() {
             </li>
             <li>
               <button onClick={handleLogoutClick}>Logout</button>
+            </li>
+            <li>
+              <NavLink to="/calc">calc</NavLink>
             </li>
             <li>
               Logged in user
