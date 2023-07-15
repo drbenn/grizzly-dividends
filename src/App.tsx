@@ -11,7 +11,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Navbar from './components/Navbar'
 import NoMatch from './pages/Nomatch'
-import CalcPage from './pages/CalcPage';
+import { Counter } from './pages/Counter';
 
 function App() {
   const location = useLocation();
@@ -25,7 +25,7 @@ function App() {
           <Route path='portfolio' element={<Portfolio />} />
           <Route path='register' element={<Register />} />
           <Route path='login' element={<Login />} />
-          <Route path='calc' element={<CalcPage />} />
+          <Route path='counter' element={<Counter />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </AnimatePresence>

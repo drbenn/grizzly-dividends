@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { motion } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
+  const navigate = useNavigate();
   const handleSubmitRegistration: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const formData: FormData = new FormData(event.currentTarget);
@@ -29,22 +31,19 @@ export default function Register() {
         },
         body: JSON.stringify(userData)
       });
-
-      console.log('in TRY');
-      console.log(response);
-      
       
       // Handle the response from the server as needed
       if (response.ok) {
-        console.log('User registration successful!');
-      } else {
+        console.log('User registration successful!');    
+        navigate("/portfolio")    
+      } else {       
         console.error('User registration failed.');
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
-  
+
 
   return (
     <motion.div
@@ -52,17 +51,21 @@ export default function Register() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 3 }}
+      transition={{ duration: 1 }}
     >
-      <h1>Register</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, veniam. Voluptatem recusandae molestias quis quidem vel aspernatur quibusdam debitis vitae?</p>    
-      <form onSubmit={handleSubmitRegistration}>
-        <input type="text" name="username" placeholder="Username" />
-        <input type="text" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" />
-        <button type="submit">Register</button>
-      </form>
+      <div className="container">
+        <div className='page-title'>Register</div>   
+        <form onSubmit={handleSubmitRegistration}>
+          <div className='form-container'>
+            <input type="text" name="username" placeholder="Username" className='user-input'/>
+            <input type="text" name="email" placeholder="Email" className='user-input'/>
+            <input type="password" name="password" placeholder="Password" className='user-input'/>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" className='user-input'/>
+            <button type="submit" className='submit-button'>Register</button>
+          </div>
+        </form>
+      </div>
+
     </motion.div>
   )
 }

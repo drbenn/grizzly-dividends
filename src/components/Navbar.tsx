@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import './navbar.css'
+import './navbar.scss'
 import hamburger from '/hamburger.svg'
-import logo from '/logo.svg'
+import logo from '/bear3.png'
+// import logo from '/logo.svg'
 
 
 export default function Navbar() {
@@ -22,16 +23,12 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="container">
+      {/* <div className="container"> */}
         <div className="logo">
           <NavLink to="/">
             <img 
               src={logo}         
               alt={'Photo of ' + "jabroni"}
-              style={{
-                width: 32,
-                height: 32
-              }}
             />
           </NavLink>
         </div>
@@ -55,20 +52,20 @@ export default function Navbar() {
               <NavLink to="/register">Register</NavLink>
             </li>
             <li>
-              <NavLink to="/login">Login</NavLink>
+              <NavLink to="/login">Log In</NavLink>
             </li>
             <li>
               <button onClick={handleLogoutClick}>Logout</button>
             </li>
             <li>
-              <NavLink to="/calc">calc</NavLink>
+              <NavLink to="/counter">Store Count</NavLink>
             </li>
             <li>
               Logged in user
             </li>
           </ul>
         </div>
-      </div>
+      {/* </div> */}
     </nav>
   )
 }

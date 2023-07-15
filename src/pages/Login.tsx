@@ -1,20 +1,48 @@
 
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-  const handleSubmitLogin: React.FormEventHandler<HTMLFormElement> = (event) => {
+  const navigate = useNavigate();
+  const handleSubmitLogin: React.FormEventHandler<HTMLFormElement> = async (event) => {
     const formData: FormData = new FormData(event.currentTarget);
     event.preventDefault();
     // for (const [key, value] of formData.entries()) {
     //   console.log(key, value);
     // }
     console.log(event.target[0].value);
-    const email: string = event.target[0].value;
+    const username: string = event.target[0].value;
     const password: string = event.target[1].value;
     console.log('Send login to server to authenticate');
-    console.log('email: ', email, ' password: ', password);
+    console.log('username: ', username, ' password: ', password);
+    const userData = {
+      "username": username,
+      "password": password
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+      
+      // Handle the response from the server as needed
+      if (response.ok) {
+        console.log('User login successful!');
+        // TODO: GET USER DATA After successful login    
+        navigate("/portfolio")    
+      } else {       
+        console.error('User login failed.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
   return (
@@ -23,15 +51,22 @@ export default function Login() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 3 }}
+      transition={{ duration: 1 }}
     >
-      <h1>Login</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, veniam. Voluptatem recusandae molestias quis quidem vel aspernatur quibusdam debitis vitae?</p>    
-      <form onSubmit={handleSubmitLogin}>
-        <input type="text" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
-        <button type="submit">Login</button>
-      </form>
+    <div className="container">
+      <div className='page-title'>Log In</div>
+
+        <form onSubmit={handleSubmitLogin}>
+          <div className='form-container'>
+            <input type="text" name="username" placeholder="Username" className='user-input'/>
+            <input type="password" name="password" placeholder="Password" className='user-input'/>
+            <button type="submit" className='submit-button'>LOG IN</button>
+          </div>
+        </form>
+
+
+    </div>
+
     </motion.div>
   )
 }
