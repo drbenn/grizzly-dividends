@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import TickerRow from '../components/TickerRow';
@@ -18,6 +20,36 @@ export default function Portfolio() {
       .then((response) => response.json())
       .then((json) => setUser(json));
     }, []);
+
+  const getPortfolioData = async () => {
+    console.log("in getPortfolioData");
+    
+    // const userData = {
+    //   "username": username,
+    //   "password": password
+    // }
+    const samplePortfolio = ['HD','LAND', 'TGT']
+    try {
+      const response = await fetch('http://localhost:5000/portfoliodata', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(samplePortfolio)
+      });
+      
+      // Handle the response from the server as needed
+      if (response.ok) {
+        console.log('User login successful!');
+        // TODO: GET USER DATA After successful login    
+        navigate("/portfolio")    
+      } else {       
+        console.error('User login failed.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
 
   return (
     <motion.div
@@ -52,6 +84,7 @@ export default function Portfolio() {
         </tbody>
       </table>
     </div>
+    <button onClick={() => getPortfolioData()}>GET DATA</button>
 
     <TickerRow></TickerRow>
 

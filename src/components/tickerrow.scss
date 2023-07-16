@@ -49,6 +49,23 @@
   font-weight: 700;
 }
 
+.amount-input {
+  width: 3.5rem;
+  font-size: 0.7rem;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .more-detail-cell {
   width: 1rem;
   img {
@@ -64,3 +81,8 @@
   }
 }
 
+
+.close {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
