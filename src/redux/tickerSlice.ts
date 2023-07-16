@@ -7,13 +7,15 @@ import {  toast } from 'react-toastify';
 export interface TickerState {
   isLoggedIn: boolean,
   username: string,
-  tickers: string[]
+  tickers: string[],
+  tickerData: any[],
 }
 
 const initialState: TickerState = {
   isLoggedIn: false,
   username: '',
   tickers: [],
+  tickerData: []
 }
 
 
@@ -38,12 +40,17 @@ export const tickerSlice = createSlice({
       return {
         ...state,
         tickers: state.tickers.filter((item) => item !== action.payload)
+      }      
+    },
+    addTickerData: (state, action: PayloadAction<any[]>) => {
+      return {
+        ...state,
+        tickerData: [
+          action.payload,
+          ...state.tickerData,
+        ]
       }
-      
-      
-      // console.log(state.value.findIndex(action.payload))
-      
-    }
+    },
     // increment: (state) => {
     //   // Redux Toolkit allows us to write "mutating" logic in reducers. It
     //   // doesn't actually mutate the state because it uses the Immer library,
@@ -61,6 +68,6 @@ export const tickerSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addTicker, removeTicker } = tickerSlice.actions
+export const { addTicker, removeTicker, addTickerData } = tickerSlice.actions
 
 export default tickerSlice.reducer

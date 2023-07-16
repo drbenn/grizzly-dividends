@@ -11,6 +11,8 @@ import { motion } from "framer-motion";
 import TickerRow from '../components/TickerRow';
 import {v4} from 'uuid';
 import TickerSearchBar from '../components/TickerSearchBar';
+import { useDispatch } from 'react-redux';
+import { addTickerData } from '../redux/tickerSlice'
 
 interface user {
   map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
@@ -20,21 +22,32 @@ interface user {
 }
 
 export default function Portfolio() {
+  const dispatch = useDispatch()
   const [name, setName] = useState('Mario')
   const [user, setUser] = useState<user | undefined>();
+  const [tickerData, setTickerData] = useState([])
   // const {tickers, setTickers} = useState(['HD','LAND', 'TGT'])
   let tickers = ['HD','LAND', 'TGT']
-  const [tickerData, setTickerData] = useState([{}])
+
+  function handleAddTickerData(data) {
+    dispatch(addTickerData(data))
+  }
 
   useEffect(() => {
     console.log("useEffect Run");
-    fetch("http://localhost:5000/members").then(
+    fetch("http://localhost:5000/dataquery", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(["HD", "LAND"])
+    }).then(
       res => res.json()
     ).then(
-        data => {
-      
-      // setTickerData(data);
+      data => {
       console.log(data);
+      setTickerData(data);
+      handleAddTickerData(data);
     })
     // console.log(name)
     // // fetch('https://jsonplaceholder.typicode.com/users')
@@ -58,46 +71,6 @@ export default function Portfolio() {
 
     }, []);
 
-  // const getPortfolioData = async () => {
-  //   console.log("in getPortfolioData");
-    
-    // const userData = {
-    //   "username": username,
-    //   "password": password
-    // }
-  //   const samplePortfolio = ['HD','LAND', 'TGT']
-  //   let sampleString: string = '';
-  //   for (let i = 0; i < samplePortfolio.length; i++) {
-  //     if (i === samplePortfolio.length - 1) {
-  //       sampleString += samplePortfolio[i];
-  //     } else {
-  //       sampleString += samplePortfolio[i] + ',';
-  //     }
-  //   }
-  //   console.log(sampleString);
-  //   try {
-  //     const response = await fetch(`http://localhost:5000/portfoliodata?tickers=${sampleString}`, {
-  //       method: 'GET',
-  //       // headers: {
-  //       //   'Content-Type': 'application/json'
-  //       // },
-  //       // body: JSON.stringify(samplePortfolio)
-  //     });
-      
-  //     // Handle the response from the server as needed
-  //     if (response.ok) {
-  //       console.log('Ticker data get successful!');
-  //       console.log(response);
-        
-  //       // TODO: GET USER DATA After successful login    
-  //       // navigate("/portfolio")    
-  //     } else {       
-  //       console.error('Ticker data get failed.');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // }
   
   return (
     <motion.div
@@ -133,9 +106,11 @@ export default function Portfolio() {
       </table>
     </div> */}
     <button onClick={() => name === "Mario" ? setName("Luigi") : setName("Mario")}>Change Name</button>
-    <button onClick={() => getPortfolioData()}>GET DATA</button>
 
-    <TickerRow></TickerRow>
+    {tickerData?.map((item) => (
+        <TickerRow key={Math.random()} props={item}></TickerRow>      
+    ))}
+    
 
 
 

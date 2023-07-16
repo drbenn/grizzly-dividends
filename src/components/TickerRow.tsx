@@ -9,12 +9,16 @@ import { useDispatch } from 'react-redux'
 
 
 
-export default function TickerRow() {    
+
+export default function TickerRow({props}) {    
   const dispatch = useDispatch()
   const [divYield, setDivYield] = useState(0.0255)
   const [amount, setAmount] = useState(100000)
   const [annualDividend, setAnnualDividend] = useState(amount * divYield )
-
+  console.log('row props');
+  console.log(props);
+  
+  
   
   function handleRemoveTicker() {
     console.log("handle Removing Ticker MSFT")
@@ -31,7 +35,7 @@ export default function TickerRow() {
         </div>
         <div className='cell-detail'>
           <span className='ticker-symbol'>
-            MSFT
+            {props[0]}
           </span>
         </div>
       </div>
