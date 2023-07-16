@@ -4,13 +4,22 @@ import { useState } from 'react'
 import detailIcon from '/line-chart.png'
 import close from '/close.png'
 import './tickerrow.scss'
+import { removeTicker } from '../redux/tickerSlice'
+import { useDispatch } from 'react-redux'
 
 
 
 export default function TickerRow() {    
+  const dispatch = useDispatch()
   const [divYield, setDivYield] = useState(0.0255)
   const [amount, setAmount] = useState(100000)
   const [annualDividend, setAnnualDividend] = useState(amount * divYield )
+
+  
+  function handleRemoveTicker() {
+    console.log("handle Removing Ticker MSFT")
+    dispatch(removeTicker("MSFT"))
+  }
 
 
 
@@ -98,6 +107,7 @@ export default function TickerRow() {
         <img 
               src={close}         
               alt={'Remove Ticker'}
+              onClick={handleRemoveTicker}
             />
         </div>
       </div>

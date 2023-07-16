@@ -10,6 +10,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import TickerRow from '../components/TickerRow';
 import {v4} from 'uuid';
+import TickerSearchBar from '../components/TickerSearchBar';
 
 interface user {
   map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
@@ -107,7 +108,7 @@ export default function Portfolio() {
       transition={{ duration: 1 }}
     >
       <h1>Portfolio</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, veniam. Voluptatem recusandae molestias quis quidem vel aspernatur quibusdam debitis vitae?</p>
+      <TickerSearchBar />
 
       {/* <div className="p-2">
       <table className="table table-bordered">
