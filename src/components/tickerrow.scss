@@ -1,0 +1,66 @@
+@import '../variables.scss';
+
+.row-container {
+  display: flex;
+  flex-direction: row;
+  // flex-wrap: nowrap;
+  border: 1px solid $dark-3;
+  border-radius: 2px;
+
+
+}
+
+.cell {
+  display: flex;
+  white-space: nowrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.1rem 1.5rem;
+  margin: 0.75rem 0rem;
+  border-right: 1px solid $dark-3;
+  font-size: 0.7rem;
+}
+
+.cell:first-of-type {
+  margin-left: 0rem;
+}
+
+.cell:last-of-type {
+  margin-right: 0.5rem;
+  border-right: 1px solid transparent;
+}
+
+
+.cell-title {
+  text-align: center;
+  padding-bottom: 0.3rem;
+}
+
+.cell-detail {
+  text-align: center;
+  padding-bottom: 0.3rem;
+}
+
+.ticker-symbol {
+  color: $ticker-color;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.more-detail-cell {
+  width: 1rem;
+  img {
+    width: 150%;
+    margin-top: 0.4rem;
+    transform: translate( 0rem, 0.2rem );
+    transition: 150ms ease-in;
+  }
+  img:hover{
+    filter: brightness(90%) contrast(200%) hue-rotate(300deg);
+    transition: 150ms ease-in;
+    background-color: rgb(221, 164, 193);
+  }
+}
+

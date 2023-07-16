@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
+import TickerRow from '../components/TickerRow';
 
 interface user {
   map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
@@ -51,6 +52,12 @@ export default function Portfolio() {
         </tbody>
       </table>
     </div>
+
+    <TickerRow></TickerRow>
+
+
+
+
 
     
     </motion.div>

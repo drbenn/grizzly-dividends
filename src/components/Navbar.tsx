@@ -28,14 +28,14 @@ export default function Navbar() {
           <NavLink to="/">
             <img 
               src={logo}         
-              alt={'Photo of ' + "jabroni"}
+              alt={'Grizzly Logo'}
             />
           </NavLink>
         </div>
         <div className="menu-icon" onClick={handleShowNavbar}>
           <img 
             src={hamburger}         
-            alt={'Photo of ' + "jabroni"}
+            alt={'Mobile Hamburger Menu'}
             style={{
               width: 32,
               height: 32
