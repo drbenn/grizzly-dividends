@@ -13,12 +13,18 @@ import Navbar from './components/Navbar'
 import NoMatch from './pages/Nomatch'
 import { Counter } from './pages/Counter';
 
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   const location = useLocation();
+  const notify = () => toast("Wow so easy!");
 
   return (
     <>
       <Navbar />
+      <button onClick={notify}>Notify</button>
       <AnimatePresence mode="wait">
         <Routes>
           <Route path='/' element={<Home />} />
@@ -29,6 +35,18 @@ function App() {
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </AnimatePresence>
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light" // switch between themes of light, dark and colored
+      />
       {/* <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

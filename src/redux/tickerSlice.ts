@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../redux/store'
+import {  toast } from 'react-toastify';
 
 export interface TickerState {
   isLoggedIn: boolean,
@@ -15,12 +16,15 @@ const initialState: TickerState = {
   tickers: [],
 }
 
+
+const toastMessage = (message:string) => toast(message);
+
 export const tickerSlice = createSlice({
   name: 'tickers',
   initialState,
   reducers: {
     addTicker: (state, action: PayloadAction<string>) => {
-      console.log('add ticker');
+      toastMessage(`${action.payload} added`)
       return {
         ...state,
         tickers: [
@@ -30,8 +34,7 @@ export const tickerSlice = createSlice({
       }
     },
     removeTicker: (state, action: PayloadAction<string>) => {
-
-      console.log('remove ticker');
+      toastMessage(`${action.payload} removed`)
       return {
         ...state,
         tickers: state.tickers.filter((item) => item !== action.payload)
