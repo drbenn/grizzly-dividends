@@ -107,7 +107,7 @@ export default function Portfolio() {
     </div> */}
     <button onClick={() => name === "Mario" ? setName("Luigi") : setName("Mario")}>Change Name</button>
 
-    {tickerData?.map((item) => (
+    {tickerData?.map((item) => (        
         <TickerRow key={Math.random()} props={item}></TickerRow>      
     ))}
     

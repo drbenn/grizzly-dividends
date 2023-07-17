@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useState } from 'react'
 // import hamburger from '/hamburger.svg'
 // import logo from '/bear3.png'
@@ -10,7 +11,7 @@ import { useDispatch } from 'react-redux'
 
 
 
-export default function TickerRow({props}) {    
+export default function TickerRow({...props}) {    
   const dispatch = useDispatch()
   const [divYield, setDivYield] = useState(0.0255)
   const [amount, setAmount] = useState(100000)
@@ -35,7 +36,7 @@ export default function TickerRow({props}) {
         </div>
         <div className='cell-detail'>
           <span className='ticker-symbol'>
-            {props[0]}
+            {props?.props["ticker"]}
           </span>
         </div>
       </div>
@@ -52,7 +53,7 @@ export default function TickerRow({props}) {
           Yield
         </div>
         <div className='cell-detail'>
-          2.55%
+          {props?.props["dividend_yield"]}
         </div>
       </div>
       <div className='cell'>
@@ -65,10 +66,10 @@ export default function TickerRow({props}) {
       </div>
       <div className='cell'>
         <div className='cell-title'>
-          Payout
+          Payout Ratio
         </div>
         <div className='cell-detail'>
-          55%
+          {props?.props["payout_ratios"][0]["payout_ratio"]}
         </div>
       </div>
       <div className='cell'>
@@ -76,23 +77,25 @@ export default function TickerRow({props}) {
           Frequency
         </div>
         <div className='cell-detail'>
-          Q (J-M-J-O)          
+          {/* Q (J-M-J-O)           */}
+          {props?.props["dividend_payment_months_and_count"]["dividend_payment_months"]}
+
         </div>
       </div>
       <div className='cell'>
         <div className='cell-title'>
-          Next Dividend
+        5 Yr CAGR
         </div>
         <div className='cell-detail'>
-          1/22/24
+        {props?.props["five_year_cagr"]}
         </div>
       </div>
       <div className='cell'>
         <div className='cell-title'>
-          Invest By
+          Growth(Yrs)
         </div>
         <div className='cell-detail'>
-          12/22/23
+        {props?.props["years_dividend_growth"]}
         </div>
       </div>
       <div className='cell'>
