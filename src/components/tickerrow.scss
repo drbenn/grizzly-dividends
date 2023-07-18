@@ -3,8 +3,11 @@
 .row-container {
   display: flex;
   flex-direction: row;
-  // flex-wrap: nowrap;
-  border: 1px solid $dark-3;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+  // border: 1px solid $dark-3;
+  border-bottom: 1px solid $dark-3;
   border-radius: 2px;
   margin: 0.75rem 0rem;
 
@@ -15,12 +18,14 @@
   white-space: nowrap;
   flex-direction: column;
   flex-wrap: nowrap;
+  width: 3rem;
   justify-content: flex-start;
   align-items: center;
   padding: 0.1rem 1.5rem;
   margin: 0.75rem 0rem;
   border-right: 1px solid $dark-3;
   font-size: 0.7rem;
+  cursor: default;
 }
 
 .cell:first-of-type {
@@ -52,6 +57,7 @@
 .amount-input {
   width: 3.5rem;
   font-size: 0.7rem;
+  text-align: center;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -69,9 +75,9 @@ input[type=number] {
 .more-detail-cell {
   width: 1rem;
   img {
-    width: 150%;
+    width: 180%;
     margin-top: 0.4rem;
-    transform: translate( 0rem, 0.2rem );
+    transform: translate( -0.3rem, 0rem );
     transition: 150ms ease-in;
   }
   img:hover{
@@ -82,7 +88,84 @@ input[type=number] {
 }
 
 
-.close {
+.close-detail-cell {
+  width: 1rem;
   font-size: 1.5rem;
   font-weight: 500;
+  border-radius: 10rem;
+  img {
+    width: 125%;
+    margin-top: 0.4rem;
+    transform: translate( 0rem, 0.2rem );
+    transition: 150ms ease-in;
+  }
+  img:hover{
+    filter: brightness(200%) contrast(1%);
+    transition: 150ms ease-in;
+  }
+}
+
+
+.chart-cell {
+  display: flex;
+  white-space: nowrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.1rem 1.5rem;
+  margin: 0.75rem 0rem;
+  border-right: 1px solid $dark-3;
+  font-size: 0.7rem;
+}
+
+.close-cell {
+  display: flex;
+  white-space: nowrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.1rem 1.5rem;
+  margin: 0.75rem 0rem;
+  border-right: 1px solid transparent;
+  font-size: 0.7rem;
+}
+
+.info-icon {
+  width: 0.8rem;
+  margin-left: 0.25rem;
+  transform: translate( 0rem, 0.1rem );
+  border-radius: 10rem;
+  transition: 150ms ease-in;
+}
+
+.info-icon:hover {
+  transition: 150ms ease-in;
+  background-color: $info-icon-hover;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 1rem;
+  color: $light-text;
+}
+.title-info {
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+.text-info {
+  font-size: 0.6rem;
+}
+
+
+.months-info {
+  font-size: 0.6rem;
 }

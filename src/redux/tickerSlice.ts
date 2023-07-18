@@ -1,21 +1,35 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../redux/store'
 import {  toast } from 'react-toastify';
 
+export interface DeepDiveTicker {
+  "ticker": string,
+  "amount": number
+}
 export interface TickerState {
   isLoggedIn: boolean,
   username: string,
   tickers: string[],
   tickerData: any[],
+  deepDiveTicker: DeepDiveTicker,
+  profileTickers: DeepDiveTicker[]
 }
 
 const initialState: TickerState = {
   isLoggedIn: false,
   username: '',
   tickers: [],
-  tickerData: []
+  tickerData: [],
+  deepDiveTicker: {
+    "ticker": '',
+    "amount": 0
+  },
+  profileTickers: []
 }
 
 
@@ -51,6 +65,22 @@ export const tickerSlice = createSlice({
         ]
       }
     },
+    // TODO - removeTickerData - activate at same time as removeTicker
+    updateDeepDiveTicker: (state, action: PayloadAction<DeepDiveTicker>) => {
+      state.deepDiveTicker.ticker = action.payload.ticker;
+      state.deepDiveTicker.amount = action.payload.amount;
+    },
+    updateProfileTickers: (state, action: PayloadAction<DeepDiveTicker>) => {
+      console.log(" in update ProfileTickers");
+      console.log(...state.tickerData);
+      console.log(action);
+      const currentProfileTickers = state.profileTickers;
+      console.log(currentProfileTickers);
+      state.profileTickers.push(action.payload)
+      // state.profileTickers.findIndex(action.payload.ticker === )
+
+      
+    }
     // increment: (state) => {
     //   // Redux Toolkit allows us to write "mutating" logic in reducers. It
     //   // doesn't actually mutate the state because it uses the Immer library,
@@ -68,6 +98,6 @@ export const tickerSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addTicker, removeTicker, addTickerData } = tickerSlice.actions
+export const { addTicker, removeTicker, addTickerData, updateDeepDiveTicker, updateProfileTickers } = tickerSlice.actions
 
 export default tickerSlice.reducer

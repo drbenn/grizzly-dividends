@@ -1,34 +1,126 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 // import hamburger from '/hamburger.svg'
 // import logo from '/bear3.png'
 import detailIcon from '/line-chart.png'
 import close from '/close.png'
 import './tickerrow.scss'
-import { removeTicker } from '../redux/tickerSlice'
+import { removeTicker, updateDeepDiveTicker, updateProfileTickers } from '../redux/tickerSlice'
 import { useDispatch } from 'react-redux'
+import info from '/info.png'
+
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/perspective-subtle.css';
+import DeepDive from './DeepDive'
 
 
-
+const currencyFormat = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD"
+});
 
 export default function TickerRow({...props}) {    
   const dispatch = useDispatch()
-  const [divYield, setDivYield] = useState(0.0255)
-  const [amount, setAmount] = useState(100000)
-  const [annualDividend, setAnnualDividend] = useState(amount * divYield )
-  console.log('row props');
-  console.log(props);
+  const [divYield, setDivYield] = useState(2)
+  const [amount, setAmount] = useState('1000')
+  const [annualDividend, setAnnualDividend] = useState(0)
+  // console.log('row props');
+  // console.log(props);
   
   
-  
-  function handleRemoveTicker() {
-    console.log("handle Removing Ticker MSFT")
-    dispatch(removeTicker("MSFT"))
+  useEffect(() => { 
+    const dividendYield = Number(yieldFormat(props?.props["dividend_yield"]))
+    setDivYield(dividendYield)
+    console.log('USE EFFECT in ROW');
+    const newAnnualDividend = Number(amount) * divYield;
+    setAnnualDividend(newAnnualDividend)
+    const ticker: string = props?.props["ticker"];
+    const investAmount: number = Number(amount);
+    dispatch(updateProfileTickers({"ticker":ticker, "amount": investAmount}))
+  }, [amount, divYield])
+
+
+  const handleRemoveTicker = () => {
+    console.log("handle Removing Ticker")
+    dispatch(removeTicker(ticker))
   }
 
+  const handleDeepDiveTicker = () => {
+    console.log("handle/update Deep Dive ticker")
+    const ticker: string = props?.props["ticker"];
+    const investAmount: number = Number(amount);
+    dispatch(updateDeepDiveTicker({"ticker":ticker, "amount": investAmount}))
+  }
 
+  const handleAmountChange = (value: string) => {
+    const ticker: string = props?.props["ticker"];
+    const investAmount: number = Number(amount);
+    setAmount(Number(value));
+  }
+
+  const yieldFormat = (num) => {
+    const divYield =  (Number(num) * 100).toFixed(2)
+    return divYield;
+  }
+
+  const payoutFormat = (num) => {
+    const string = String(num)
+    let newString = '';
+    let returnString = '';
+    for (let i = 0; i < 5; i++) {
+      if (string[i] === '.') {
+        newString += '' 
+      } else {newString += string[i]}
+    }
+    for (let i = 0; i < 4; i++) {
+      if (i === 2) {
+        returnString += '.' + newString[i]
+      } else {returnString += newString[i]}
+    }
+    return returnString
+  }
+
+  const fiveYrCagrFormat = (num) => {
+    return (Number(num) * 100).toFixed(2)
+  }
+
+  const frequencyFormat = (obj) => {
+    console.log(obj);
+    let frequency: string = '';
+    let months: string = '';
+    if (obj.ttm_dividend_payment_count === 4) {
+      frequency = 'Q';
+      if (obj.dividend_payment_months.includes('Mar')) {
+        // months = '(Mar,Jun,Sep,Dec)';
+        months = '(M,J,S,D)';
+      }
+      if (obj.dividend_payment_months.includes('Feb')) {
+        // months = '(Feb,May,Aug,Nov)';
+        months = '(F,M,A,N)';
+      }
+      if (obj.dividend_payment_months.includes('Jan')) {
+        // months = '(Jan,Apr,Jul,Oct)';
+        months = '(J,A,J,O)';
+      }      
+    }
+    if (obj.ttm_dividend_payment_count === 12) {
+      frequency = 'Monthly';
+    }    
+    return frequency + months
+  }
+
+  const preventMinus = (e) => {
+    if (e.code === 'Minus') {
+        e.preventDefault();
+    }
+};
 
   return (
+    <>
+    <DeepDive></DeepDive>
     <div className="row-container">
       <div className='cell'>
         <div className='cell-title'>
@@ -45,7 +137,16 @@ export default function TickerRow({...props}) {
           Amount
         </div>
         <div className='cell-detail'>
-            <input name="tickerAmount" type="number" max={9999999} maxLength={7} value={amount} className="amount-input" onChange={e => setAmount(e.target.value)} />
+            <input
+              name="tickerAmount" 
+              type="number"
+              min={0} max={7} 
+              value={amount === 0 ? '' : amount} 
+              className="amount-input"
+              placeholder={currencyFormat.format(amount)}
+              onKeyPress={preventMinus}
+              onChange={e => handleAmountChange(e.target.value)} 
+            />
         </div>
       </div>
       <div className='cell'>
@@ -53,15 +154,15 @@ export default function TickerRow({...props}) {
           Yield
         </div>
         <div className='cell-detail'>
-          {props?.props["dividend_yield"]}
+          {yieldFormat(props?.props["dividend_yield"])}%
         </div>
       </div>
       <div className='cell'>
         <div className='cell-title'>
-          Annual Dividends
+          Dividends
         </div>
         <div className='cell-detail'>
-          ${new Intl.NumberFormat('en-US').format(annualDividend)}
+          ${new Intl.NumberFormat('en-US').format(annualDividend)}/Yr
         </div>
       </div>
       <div className='cell'>
@@ -69,16 +170,35 @@ export default function TickerRow({...props}) {
           Payout Ratio
         </div>
         <div className='cell-detail'>
-          {props?.props["payout_ratios"][0]["payout_ratio"]}
+          {payoutFormat(props?.props["payout_ratios"][0]["payout_ratio"])}%
         </div>
       </div>
       <div className='cell'>
         <div className='cell-title'>
           Frequency
+          <Tippy 
+            placement={'top'} 
+            arrow={true}
+            animation={'perspective-subtle'} 
+            duration={400}
+            content={<div className="info-container">
+              <div className="title-info">Frequency of Dividend Payments</div>
+              <div className="text-info">Monthly - Dividends paid 12 months of the year</div>
+              <div className="text-info">Q: Quarterly with payment months of</div>
+              <div className='months-info'>(J,A,J,O) = (Jan,Apr,Jul,Oct)</div>    
+              <div className='months-info'>(F,M,A,N) = (Feb,May,Aug,Nov)</div>
+              <div className='months-info'>(M,J,S,D) = (Mar,Jun,Sep,Dec)</div>        
+
+              </div>}>
+          <img 
+            src={info}         
+            alt={'Payment Frequency Information'}
+            className='info-icon'
+          />
+        </Tippy>
         </div>
         <div className='cell-detail'>
-          {/* Q (J-M-J-O)           */}
-          {props?.props["dividend_payment_months_and_count"]["dividend_payment_months"]}
+          {frequencyFormat(props?.props["dividend_payment_months_and_count"])}
 
         </div>
       </div>
@@ -87,18 +207,18 @@ export default function TickerRow({...props}) {
         5 Yr CAGR
         </div>
         <div className='cell-detail'>
-        {props?.props["five_year_cagr"]}
+        {fiveYrCagrFormat(props?.props["five_year_cagr"])}%
         </div>
       </div>
       <div className='cell'>
         <div className='cell-title'>
-          Growth(Yrs)
+          Growth
         </div>
         <div className='cell-detail'>
-        {props?.props["years_dividend_growth"]}
+        {props?.props["years_dividend_growth"]} Yrs
         </div>
       </div>
-      <div className='cell'>
+      <div className='chart-cell'>
         {/* <div className='cell-title'>
           Detail
         </div> */}
@@ -106,11 +226,12 @@ export default function TickerRow({...props}) {
         <img 
               src={detailIcon}         
               alt={'More Stock Information'}
+              onClick={handleDeepDiveTicker}
             />
         </div>
       </div>
-      <div className='cell'>
-      <div className='more-detail-cell'>
+      <div className='close-cell'>
+      <div className='close-detail-cell'>
         <img 
               src={close}         
               alt={'Remove Ticker'}
@@ -120,6 +241,6 @@ export default function TickerRow({...props}) {
       </div>
 
     </div>
-
+    </>
   )
 }
