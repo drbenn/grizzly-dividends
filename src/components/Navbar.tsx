@@ -23,15 +23,23 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      {/* <div className="container"> */}
-        <div className="logo">
-          <NavLink to="/">
-            <img 
-              src={logo}         
-              alt={'Grizzly Logo'}
-            />
+        
+        <div className='nav-logo-container'>
+        <NavLink to="/">
+          <div className="logo">
+          <img 
+            src={logo}         
+            alt={'Grizzly Logo'}
+          />
+          </div>
           </NavLink>
+          <div className='nav-site-title'>
+            GRIZZLY DIVIDENDS
+          </div>
         </div>
+        
+
+        
         <div className="menu-icon" onClick={handleShowNavbar}>
           <img 
             src={hamburger}         
@@ -61,11 +69,10 @@ export default function Navbar() {
               <NavLink to="/counter">Store Count</NavLink>
             </li>
             <li>
-              Logged in user
+              U
             </li>
           </ul>
         </div>
-      {/* </div> */}
     </nav>
   )
 }
