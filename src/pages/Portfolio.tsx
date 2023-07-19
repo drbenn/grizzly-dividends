@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTickerData } from '../redux/tickerSlice'
 import { RootState } from '../redux/store';
 import {  toast } from 'react-toastify';
+import SummaryDashboard from '../components/summaryDashboard';
 
 interface user {
   map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
@@ -113,6 +114,7 @@ export default function Portfolio() {
     >
 
       <div className='page-title'>Portfolio</div>
+      <SummaryDashboard />
       <TickerSearchBar />
       {name}
       {portfolioTickers}

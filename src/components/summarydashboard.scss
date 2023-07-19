@@ -1,0 +1,57 @@
+
+
+.dash-container {
+  border: 1px solid red;
+  width: 80%;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.metric-container {
+  border: 1px solid blue;
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+
+}
+
+.blended-yield-box {
+  border: 1px solid grey;
+  width: 100%;
+  padding: 1rem 0rem;
+}
+
+.annual-income-box {
+  border: 1px solid grey;
+  width: 100%;
+  padding: 1rem 0rem;
+}
+
+.total-invested-box {
+  border: 1px solid grey;
+  width: 100%;
+  padding: 1rem 0rem;
+}
+
+.metric-title {
+
+}
+
+.metric-number {
+
+}
+
+.summary-chart-container {
+  border: 1px solid green;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
