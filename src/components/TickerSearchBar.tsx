@@ -9,7 +9,7 @@ export default function TickerSearchBar() {
   const [searchTicker, setSearchTicker] = useState('')
 
   function handleAddTicker() {
-    dispatch(addTicker(searchTicker))
+    dispatch(addTicker(searchTicker.toUpperCase()))
   }
 
   return (

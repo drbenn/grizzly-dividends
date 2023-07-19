@@ -5,7 +5,7 @@ import tickerReducer from './tickerSlice'
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    tickers: tickerReducer
+    store: tickerReducer
   },
 })
 

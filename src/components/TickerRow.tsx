@@ -34,7 +34,7 @@ export default function TickerRow({...props}) {
   useEffect(() => { 
     const dividendYield = Number(yieldFormat(props?.props["dividend_yield"]))
     setDivYield(dividendYield)
-    console.log('USE EFFECT in ROW');
+    // console.log('USE EFFECT in ROW');
     const newAnnualDividend = Number(amount) * divYield;
     setAnnualDividend(newAnnualDividend)
     const ticker: string = props?.props["ticker"];
@@ -44,12 +44,12 @@ export default function TickerRow({...props}) {
 
 
   const handleRemoveTicker = () => {
-    console.log("handle Removing Ticker")
+    // console.log("handle Removing Ticker")
     dispatch(removeTicker(ticker))
   }
 
   const handleDeepDiveTicker = () => {
-    console.log("handle/update Deep Dive ticker")
+    // console.log("handle/update Deep Dive ticker")
     const ticker: string = props?.props["ticker"];
     const investAmount: number = Number(amount);
     dispatch(updateDeepDiveTicker({"ticker":ticker, "amount": investAmount}))
@@ -88,7 +88,7 @@ export default function TickerRow({...props}) {
   }
 
   const frequencyFormat = (obj) => {
-    console.log(obj);
+    // console.log(obj);
     let frequency: string = '';
     let months: string = '';
     if (obj.ttm_dividend_payment_count === 4) {

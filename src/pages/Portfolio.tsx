@@ -14,6 +14,7 @@ import TickerSearchBar from '../components/TickerSearchBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTickerData } from '../redux/tickerSlice'
 import { RootState } from '../redux/store';
+import {  toast } from 'react-toastify';
 
 interface user {
   map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
@@ -24,7 +25,7 @@ interface user {
 
 export default function Portfolio() {
   const dispatch = useDispatch()
-  const portfolioTickers = useSelector((state: RootState) => state.tickers.tickers)
+  const portfolioTickers = useSelector((state: RootState) => state.store.tickers)
   const [name, setName] = useState('Mario')
   const [user, setUser] = useState<user | undefined>();
   const [tickerData, setTickerData] = useState([])
@@ -32,6 +33,24 @@ export default function Portfolio() {
 
   function handleAddTickerData(data) {
     dispatch(addTickerData(data))
+  }
+  const toastMessage = (message:string) => toast(message);
+
+  const tickerNamesForToast = (data) => {
+    let tickerDisplay:string = '';
+    data.forEach((item) => {
+      if (data.length === 1) {
+        tickerDisplay += item.ticker;
+      }
+      if (data.length > 1) {
+        if (item[data.length - 1]) {
+          tickerDisplay += item.ticker;
+        } else {
+          tickerDisplay += item[data.length] + ', ';
+        }
+      }
+    })
+    return tickerDisplay;
   }
 
   useEffect(() => {
@@ -47,9 +66,17 @@ export default function Portfolio() {
         res => res.json()
       ).then(
         data => {
+        console.log("portfolio data response");
         console.log(data);
-        setTickerData(data);
-        handleAddTickerData(data);
+        if (!data.length) {
+          toastMessage(`Ticker not available, search for a different one`);
+        }
+        if (data.length) {
+          const retrievedNames = tickerNamesForToast(data);
+          toastMessage(`${retrievedNames} added`)
+          setTickerData(data);
+          handleAddTickerData(data);
+        }
       })
     }
 

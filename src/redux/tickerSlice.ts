@@ -40,14 +40,20 @@ export const tickerSlice = createSlice({
   initialState,
   reducers: {
     addTicker: (state, action: PayloadAction<string>) => {
-      toastMessage(`${action.payload} added`)
-      return {
-        ...state,
-        tickers: [
-          action.payload,
-          ...state.tickers,
-        ]
+      const current = {...state};
+      const tickers = current.tickers
+      if (!tickers) {
+        tickers.push(action.payload)
+      } else {
+        tickers.includes(action.payload) ? current : tickers.push(action.payload)
       }
+      // return {
+      //   ...state,
+      //   tickers: [
+      //     action.payload,
+      //     ...state.tickers,
+      //   ]
+      // }
     },
     removeTicker: (state, action: PayloadAction<string>) => {
       toastMessage(`${action.payload} removed`)
@@ -60,10 +66,16 @@ export const tickerSlice = createSlice({
       return {
         ...state,
         tickerData: [
-          action.payload,
-          ...state.tickerData,
+          action.payload
         ]
       }
+      // return {
+      //   ...state,
+      //   tickerData: [
+      //     action.payload,
+      //     ...state.tickerData,
+      //   ]
+      // }
     },
     // TODO - removeTickerData - activate at same time as removeTicker
     updateDeepDiveTicker: (state, action: PayloadAction<DeepDiveTicker>) => {
