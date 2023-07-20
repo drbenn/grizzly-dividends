@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -45,14 +47,14 @@ export default function TickerRow({...props}) {
 
   const handleRemoveTicker = () => {
     // console.log("handle Removing Ticker")
-    dispatch(removeTicker(ticker))
+    dispatch(removeTicker(props?.props["ticker"]))
   }
 
   const handleDeepDiveTicker = () => {
     // console.log("handle/update Deep Dive ticker")
     const ticker: string = props?.props["ticker"];
     const investAmount: number = Number(amount);
-    dispatch(updateDeepDiveTicker({"ticker":ticker, "amount": investAmount}))
+    dispatch(updateDeepDiveTicker(props?.props))
   }
 
   const handleAmountChange = (value: string) => {
@@ -61,12 +63,12 @@ export default function TickerRow({...props}) {
     setAmount(Number(value));
   }
 
-  const yieldFormat = (num) => {
+  const yieldFormat = (num: number) => {
     const divYield =  (Number(num) * 100).toFixed(2)
     return divYield;
   }
 
-  const payoutFormat = (num) => {
+  const payoutFormat = (num: number) => {
     const string = String(num)
     let newString = '';
     let returnString = '';
@@ -83,11 +85,11 @@ export default function TickerRow({...props}) {
     return returnString
   }
 
-  const fiveYrCagrFormat = (num) => {
+  const fiveYrCagrFormat = (num: number) => {
     return (Number(num) * 100).toFixed(2)
   }
 
-  const frequencyFormat = (obj) => {
+  const frequencyFormat = (obj: any) => {
     // console.log(obj);
     let frequency: string = '';
     let months: string = '';
@@ -112,7 +114,7 @@ export default function TickerRow({...props}) {
     return frequency + months
   }
 
-  const preventMinus = (e) => {
+  const preventMinus = (e: any) => {
     if (e.code === 'Minus') {
         e.preventDefault();
     }

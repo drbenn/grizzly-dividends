@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -16,7 +17,7 @@ export interface TickerState {
   username: string,
   tickers: string[],
   tickerData: any[],
-  deepDiveTicker: DeepDiveTicker,
+  deepDiveTicker: {},
   profileTickers: DeepDiveTicker[]
 }
 
@@ -25,10 +26,7 @@ const initialState: TickerState = {
   username: '',
   tickers: [],
   tickerData: [],
-  deepDiveTicker: {
-    "ticker": '',
-    "amount": 0
-  },
+  deepDiveTicker: {},
   profileTickers: []
 }
 
@@ -59,7 +57,8 @@ export const tickerSlice = createSlice({
       toastMessage(`${action.payload} removed`)
       return {
         ...state,
-        tickers: state.tickers.filter((item) => item !== action.payload)
+        tickers: state.tickers.filter((item) => item !== action.payload),
+        tickerData: state.tickerData.filter((item) => item?.ticker !== action.payload)
       }      
     },
     addTickerData: (state, action: PayloadAction<any[]>) => {
@@ -78,16 +77,23 @@ export const tickerSlice = createSlice({
       // }
     },
     // TODO - removeTickerData - activate at same time as removeTicker
-    updateDeepDiveTicker: (state, action: PayloadAction<DeepDiveTicker>) => {
-      state.deepDiveTicker.ticker = action.payload.ticker;
-      state.deepDiveTicker.amount = action.payload.amount;
+    updateDeepDiveTicker: (state, action: PayloadAction<any>) => {
+      // state.deepDiveTicker.ticker = action.payload.ticker;
+      // state.deepDiveTicker.amount = action.payload.amount;
+      const current = {...state};
+      const deepDive = current.deepDiveTicker
+      return {
+        ...state,
+        deepDiveTicker: action.payload
+      }
+
     },
     updateProfileTickers: (state, action: PayloadAction<DeepDiveTicker>) => {
-      console.log(" in update ProfileTickers");
-      console.log(...state.tickerData);
-      console.log(action);
+      // console.log(" in update ProfileTickers");
+      // console.log(...state.tickerData);
+      // console.log(action);
       const currentProfileTickers = state.profileTickers;
-      console.log(currentProfileTickers);
+      // console.log(currentProfileTickers);
       state.profileTickers.push(action.payload)
       // state.profileTickers.findIndex(action.payload.ticker === )
 

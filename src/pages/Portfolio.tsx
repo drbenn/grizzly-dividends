@@ -6,16 +6,16 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import TickerRow from '../components/TickerRow';
-import {v4} from 'uuid';
 import TickerSearchBar from '../components/TickerSearchBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTickerData } from '../redux/tickerSlice'
 import { RootState } from '../redux/store';
 import {  toast } from 'react-toastify';
 import SummaryDashboard from '../components/summaryDashboard';
+import DeepDive from '../components/DeepDive';
 
 interface user {
   map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
@@ -114,6 +114,7 @@ export default function Portfolio() {
     >
 
       <div className='page-title'>Portfolio</div>
+      <DeepDive />
       <SummaryDashboard />
       <TickerSearchBar />
       {name}
@@ -147,11 +148,7 @@ export default function Portfolio() {
         <TickerRow key={Math.random()} props={item}></TickerRow>      
     ))}
     
-
-
-
-
-
+      
     
     </motion.div>
   )
