@@ -114,8 +114,8 @@ export default function Portfolio() {
     >
 
       <div className='page-title'>Portfolio</div>
-      <DeepDive />
-      <SummaryDashboard />
+      {/* <DeepDive /> */}
+      {/* <SummaryDashboard /> */}
       <TickerSearchBar />
       {name}
       {portfolioTickers}

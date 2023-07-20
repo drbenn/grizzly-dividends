@@ -41,9 +41,15 @@ export default function PaymentChart({props}) {
     plugins: {
       title: {
         display: true,
-        text: 'Dividends per Share',
-        font: {size: 16, weight: 400, family: 'Poppins'}
+        text: 'Payout Ratio by Year',
+        font: {size: 16, weight: 400, family: 'Poppins'},
+        color: '#3a3a3a'
       },
+      Legend: {
+        labels: {
+          color: 'red'
+        }
+      }
     },
     responsive: true,
     scales: {
@@ -51,12 +57,18 @@ export default function PaymentChart({props}) {
         stacked: true,
         grid: {
           color: 'white'
+        },
+        border: {
+          color: '#3a3a3a'
         }
       },
       y: {
         stacked: true,
         grid: {
           color: 'white'
+        },
+        border: {
+          color: '#3a3a3a'
         }
       },
     },

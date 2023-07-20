@@ -5,7 +5,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // border: 1px solid gold;
   max-width: 900px;
   cursor: default;
 }
@@ -16,44 +15,12 @@
   flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: flex-end;
-  // border: 1px solid gold;
-}
-
-.summary-items {
-  padding: 1rem 2.5rem;
-  line-height: 2;
-  height: 100%;
-  // border: 1px solid rgb(175, 65, 45);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  font-size: 0.9rem;
-  margin-bottom: 3.5rem;
-  .summary-title {
-    font-weight: 600;
-    margin-top: 1rem;
-  }
-  a:link, a:visited, a:active {
-    text-decoration: none;
-    color: $link-color;
-    transition: 100ms ease-in;
-    font-weight: 500;
-    cursor: default;
-  }
-  a:hover {
-    text-decoration: none;
-    color: $link-hover-color;
-    transition: 100ms ease-in;
-    cursor: default;
-  }
 }
 
 .logo-container {
-  width: 12rem;
+  width: 15rem;
   height: fit-content;
   padding: 1rem;
-  // border: 2px solid hotpink;
   img {
     width: 100%;
     transition: 400ms ease-in;
@@ -70,38 +37,11 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
-  // border: 1px solid rgb(45, 90, 175);
   width: clamp(15rem, 50vw , 50rem);
-  // width: 20px;
-  // background-color: $light-text;
-  // border: 1px solid $light-text;
   margin-top: 2rem;
-
-}
-
-.metrics-container {
-  font-size: 0.85rem;
-  color: $dark-2;
-  // border: 1px solid blue;
-  width: 10rem;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0.5rem 1rem;
-  // margin: 0.5rem;
 }
 
 
-.metric-title {
-  margin-bottom: 0rem;
-  font-weight: 400;
-  text-decoration: underline;
-  line-height: 2;
-  white-space: nowrap;
-}
 
 .chart-flex {
   display: flex;
@@ -109,80 +49,22 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  // border: 1px solid rgb(175, 65, 45);
 }
 
 .annual-dividend-history-chart {
   width: clamp(25rem, 50vw, 50rem);
   height: clamp(20rem, 35vw, 25rem);
-  // border: 2px solid blueviolet;
   margin: 4rem 0.5rem 2rem 0.5rem;
 }
 
 .payout-ratio-history-chart {
   width: clamp(25rem, 50vw, 50rem);
   height: clamp(20rem, 35vw, 25rem);
-  // border: 2px solid blueviolet;
   margin: 0.5rem;
 }
 
-.hi-lo-meter-container {
-  border-left: 2px solid $dark-2;
-  border-right: 2px solid $dark-2;
-  position: relative;
-  height: 1rem;
-  width: 100%;
-  .hi-lo-center-line {
-    position: absolute;
-    z-index:10;
-    top: 45%;
-    right: 0%;
-    height: 2px;
-    width:100%;
-    background-color: $dark-2;
-  }
-  .hi-lo-meter-gradient {
-    background: linear-gradient(90deg, rgba(13, 255, 13, 0.389), rgba(255, 36, 7, 0.823));
-    width: 100%;
-    height: 0.7rem;
-    position: absolute;
-    z-index: 1;
-    top: 20%;
-    transition: 200ms ease-in;
-  }
-  .current-indicator {
-    position: absolute;
-    z-index:100;
-    top:-10%;
-    // right: 50%;
-    height: 125%;
-    width:2px;
-    border: 2px solid $dark-2;
-    background-color: $hi-lo-current-color;
-  }
-  .current-value-text {
-    position: absolute;
-    z-index:100;
-    top: 50%;
-    // right: 50%;
-    // height: 150%;
-    line-height: 1;
-    width:fit-content;
-    font-size: 0.8rem;
-    font-weight: 500;
-    padding: 0.2rem;
-    border-radius: 1px;
-    color: $dark-1;
-    border: 1px solid $dark-1;
-    background-color: $light-text;
-    transform: translate( 1.4rem, 0.8rem);
-  }
-}
 
-.hi-lo-meter-container:hover .hi-lo-meter-gradient {
-  background-color: blueviolet;
-  transition: 200ms ease-in;
-}
+
 
 .back-button {
   position: absolute;
@@ -200,3 +82,6 @@
     transition: 150ms ease-in;
   }
 }
+
+
+

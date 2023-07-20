@@ -1,0 +1,97 @@
+@import '../variables.scss';
+
+.summary-items {
+  padding: 1rem 2.5rem;
+  line-height: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 0.9rem;
+  margin-bottom: 3.5rem;
+  .summary-title {
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+  a:link, a:visited, a:active {
+    text-decoration: none;
+    color: $link-color;
+    transition: 100ms ease-in;
+    font-weight: 500;
+    cursor: default;
+  }
+  a:hover {
+    text-decoration: none;
+    color: $link-hover-color;
+    transition: 100ms ease-in;
+    cursor: default;
+  }
+}
+
+.hi-lo-meter-container {
+  border-left: 2px solid $dark-2;
+  border-right: 2px solid $dark-2;
+  position: relative;
+  height: 1rem;
+  width: 100%;
+  .hi-lo-center-line {
+    position: absolute;
+    z-index:10;
+    top: 45%;
+    right: 0%;
+    height: 2px;
+    width:100%;
+    background-color: $dark-2;
+  }
+  .hi-lo-meter-gradient {
+    background: linear-gradient(90deg, rgba(13, 255, 13, 0.389), rgba(255, 36, 7, 0.823));
+    width: 100%;
+    height: 0.7rem;
+    position: absolute;
+    z-index: 1;
+    top: 20%;
+    transition: 200ms ease-in;
+  }
+  .current-indicator {
+    position: absolute;
+    z-index:100;
+    top:-10%;
+    height: 125%;
+    width:2px;
+    border: 2px solid $dark-2;
+    background-color: $hi-lo-current-color;
+  }
+  .current-value-text {
+    position: absolute;
+    z-index:100;
+    top: 50%;
+    line-height: 1;
+    width:fit-content;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.2rem;
+    border-radius: 1px;
+    color: $dark-1;
+    border: 1px solid $dark-1;
+    background-color: $light-text;
+    transform: translate( 1.4rem, 0.8rem);
+  }
+}
+
+.hi-lo-meter-container:hover .hi-lo-meter-gradient {
+  background-color: blueviolet;
+  transition: 200ms ease-in;
+}
+
+.dd-logo {
+  width: 0.8rem;
+  margin-left: 0.25rem;
+  transform: translate( 0rem, 0.1rem );
+  transition: 100ms ease-in;
+}
+
+.dd-logo:hover  {
+  transition: 100ms ease-in;
+  transform: scale(1.03);
+}

@@ -1,0 +1,22 @@
+@import '../variables.scss';
+
+.metrics-container {
+  font-size: 0.85rem;
+  color: $dark-2;
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0.5rem 1rem;
+}
+
+.metric-title {
+  margin-bottom: 0rem;
+  font-weight: 400;
+  text-decoration: underline;
+  line-height: 2;
+  white-space: nowrap;
+}

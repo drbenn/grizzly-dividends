@@ -17,6 +17,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/perspective-subtle.css';
 import DeepDive from './DeepDive'
+import { useNavigate } from 'react-router-dom'
 
 
 const currencyFormat = new Intl.NumberFormat("en-US", {
@@ -25,6 +26,7 @@ const currencyFormat = new Intl.NumberFormat("en-US", {
 });
 
 export default function TickerRow({...props}) {    
+  const navigate = useNavigate();
   const dispatch = useDispatch()
   const [divYield, setDivYield] = useState(2)
   const [amount, setAmount] = useState('1000')
@@ -55,6 +57,7 @@ export default function TickerRow({...props}) {
     const ticker: string = props?.props["ticker"];
     const investAmount: number = Number(amount);
     dispatch(updateDeepDiveTicker(props?.props))
+    navigate("/detail")  
   }
 
   const handleAmountChange = (value: string) => {
@@ -122,7 +125,6 @@ export default function TickerRow({...props}) {
 
   return (
     <>
-    <DeepDive></DeepDive>
     <div className="row-container">
       <div className='cell'>
         <div className='cell-title'>
