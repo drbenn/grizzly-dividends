@@ -30,6 +30,7 @@ export default function Portfolio() {
   const [name, setName] = useState('Mario')
   const [user, setUser] = useState<user | undefined>();
   const [tickerData, setTickerData] = useState([])
+  const [tickersToast, setTickersToast] = useState<string[]>([])
   // let tickers = ['HD','LAND', 'TGT']
 
   function handleAddTickerData(data) {
@@ -73,10 +74,17 @@ export default function Portfolio() {
           toastMessage(`Ticker not available, search for a different one`);
         }
         if (data.length) {
-          const retrievedNames = tickerNamesForToast(data);
-          toastMessage(`${retrievedNames} added`)
-          setTickerData(data);
-          handleAddTickerData(data);
+          // const retrievedNames = tickerNamesForToast(data);
+          data.forEach(item => {
+            if (!tickersToast.includes(item.ticker)) {
+              toastMessage(`${item.ticker} added`)
+              setTickerData(data);
+              handleAddTickerData(data);
+              setTickersToast([...tickersToast, item.ticker])
+            }
+          });
+          
+
         }
       })
     }
@@ -114,7 +122,6 @@ export default function Portfolio() {
     >
 
       <div className='page-title'>Portfolio</div>
-      {/* <DeepDive /> */}
       {/* <SummaryDashboard /> */}
       <TickerSearchBar />
       {name}
