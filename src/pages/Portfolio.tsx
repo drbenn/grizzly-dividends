@@ -162,8 +162,15 @@ export default function Portfolio() {
     </div> */}
     <button onClick={() => name === "Mario" ? setName("Luigi") : setName("Mario")}>Change Name</button>
 
-    {tickerCount > 0 && tickerData?.map((item) => (        
-        <TickerRow key={Math.random()} props={item}></TickerRow>      
+    {tickerCount > 0 && tickerData?.map((item) => (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >        
+        <TickerRow key={Math.random()} props={item}></TickerRow>  
+        </motion.div>    
     ))}
     
       
