@@ -10,7 +10,6 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import faker from 'faker';
 
 ChartJS.register(
   CategoryScale,
@@ -63,7 +62,9 @@ export const data = {
 };
 
 
-export default function SummaryDashboard() { 
+export default function SummaryDashboard(props) { 
+  console.log(props)
+  
 
   const testData = [
     {

@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react'
 import detailIcon from '/line-chart.png'
 import close from '/close.png'
 import './tickerrow.scss'
-import { removeTicker, updateDeepDiveTicker, updateProfileTickers } from '../redux/tickerSlice'
+import { removeTicker, removeTickerData, updateDeepDiveTicker, updateProfileTickers } from '../redux/tickerSlice'
 import { useDispatch } from 'react-redux'
 import info from '/info.png'
 
@@ -27,7 +27,7 @@ const currencyFormat = new Intl.NumberFormat("en-US", {
 
 export default function TickerRow({...props}) {    
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [divYield, setDivYield] = useState(2)
   const [amount, setAmount] = useState('1000')
   const [annualDividend, setAnnualDividend] = useState(0)
@@ -50,6 +50,7 @@ export default function TickerRow({...props}) {
   const handleRemoveTicker = () => {
     // console.log("handle Removing Ticker")
     dispatch(removeTicker(props?.props["ticker"]))
+    dispatch(removeTickerData(props?.props["ticker"]))
   }
 
   const handleDeepDiveTicker = () => {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -58,8 +59,11 @@ export const tickerSlice = createSlice({
       return {
         ...state,
         tickers: state.tickers.filter((item) => item !== action.payload),
-        tickerData: state.tickerData.filter((item) => item?.ticker !== action.payload)
+        
       }      
+    },
+    removeTickerData: (state, action: PayloadAction<string>) => {
+      return {...state, tickerData: state.tickerData[0].filter((ticker) => ticker["ticker"] !== action.payload)}
     },
     addTickerData: (state, action: PayloadAction<any[]>) => {
       return {
@@ -89,12 +93,48 @@ export const tickerSlice = createSlice({
 
     },
     updateProfileTickers: (state, action: PayloadAction<DeepDiveTicker>) => {
+      const current = {...state};
+      const tickers = current.profileTickers
+      const newArray = tickers.slice()
+      // console.log(action.payload)
+      // console.log("TICKERS?");
+      // console.log(tickers);
+      // console.log(newArray);
+      
+      
+      
+      if (!tickers) {
+        // tickers.push(action.payload)
+        return {
+          ...state,
+          profileTickers: [
+            action.payload
+          ]
+        }
+      } 
+      if (tickers) {
+        const index = tickers.findIndex(item => item.ticker === action.payload)
+        // console.log("INDEX");
+        // console.log(index);
+        
+        
+        if (index === -1) {
+          tickers.push(action.payload)
+        } 
+        else {
+          tickers[index] = action.payload
+        }
+      }
+
+
+      // const currentProfileTickers = state.profileTickers;
+      // state.profileTickers.push(action.payload)
+
+
       // console.log(" in update ProfileTickers");
       // console.log(...state.tickerData);
       // console.log(action);
-      const currentProfileTickers = state.profileTickers;
       // console.log(currentProfileTickers);
-      state.profileTickers.push(action.payload)
       // state.profileTickers.findIndex(action.payload.ticker === )
 
       
@@ -116,6 +156,6 @@ export const tickerSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addTicker, removeTicker, addTickerData, updateDeepDiveTicker, updateProfileTickers } = tickerSlice.actions
+export const { addTicker, removeTicker, removeTickerData, addTickerData, updateDeepDiveTicker, updateProfileTickers } = tickerSlice.actions
 
 export default tickerSlice.reducer

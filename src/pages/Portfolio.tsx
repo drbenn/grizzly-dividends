@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import TickerRow from '../components/TickerRow';
 import TickerSearchBar from '../components/TickerSearchBar';
@@ -31,6 +31,9 @@ export default function Portfolio() {
   const [user, setUser] = useState<user | undefined>();
   const [tickerData, setTickerData] = useState([])
   const [tickersToast, setTickersToast] = useState<string[]>([])
+  const [state, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+  const [tickerCount, setTickerCount] = useState(0)
   // let tickers = ['HD','LAND', 'TGT']
 
   function handleAddTickerData(data) {
@@ -54,8 +57,11 @@ export default function Portfolio() {
     })
     return tickerDisplay;
   }
+  // if (!portfolioTickers) return null; // prevents page render until state data is available
 
   useEffect(() => {
+    console.log(portfolioTickers); 
+    setTickerCount(portfolioTickers.length);
     if (portfolioTickers.length > 0) {
       console.log("useEffect Run");
       fetch("http://localhost:5000/dataquery", {
@@ -75,20 +81,23 @@ export default function Portfolio() {
         }
         if (data.length) {
           // const retrievedNames = tickerNamesForToast(data);
+          setTickerData(data);
           data.forEach(item => {
             if (!tickersToast.includes(item.ticker)) {
               toastMessage(`${item.ticker} added`)
-              setTickerData(data);
+
               handleAddTickerData(data);
               setTickersToast([...tickersToast, item.ticker])
             }
           });
-          
 
         }
       })
     }
-
+    // if (portfolioTickers.length === 0) {forceUpdate()}
+    // if (portfolioTickers.length === 0 || portfolioTickers === undefined) {
+    //   setTickerData([]);
+    // }
     // console.log(name)
     // // fetch('https://jsonplaceholder.typicode.com/users')
     // //   .then((response) => response.json())
@@ -109,6 +118,8 @@ export default function Portfolio() {
     //   }
 
 
+    
+    
     }, [portfolioTickers]);
 
   
@@ -151,7 +162,7 @@ export default function Portfolio() {
     </div> */}
     <button onClick={() => name === "Mario" ? setName("Luigi") : setName("Mario")}>Change Name</button>
 
-    {tickerData?.map((item) => (        
+    {tickerCount > 0 && tickerData?.map((item) => (        
         <TickerRow key={Math.random()} props={item}></TickerRow>      
     ))}
     
