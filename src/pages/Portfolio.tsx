@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
@@ -16,6 +17,7 @@ import { RootState } from '../redux/store';
 import {  toast } from 'react-toastify';
 import SummaryDashboard from '../components/summaryDashboard';
 import DeepDive from '../components/DeepDive';
+import { TickerDetail } from '../types';
 
 interface user {
   map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
@@ -29,7 +31,7 @@ export default function Portfolio() {
   const portfolioTickers = useSelector((state: RootState) => state.store.tickers)
   const [name, setName] = useState('Mario')
   const [user, setUser] = useState<user | undefined>();
-  const [tickerData, setTickerData] = useState([])
+  const [tickerData, setTickerData] = useState<TickerDetail[]>([])
   const [tickersToast, setTickersToast] = useState<string[]>([])
   const [state, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -163,11 +165,13 @@ export default function Portfolio() {
     <button onClick={() => name === "Mario" ? setName("Luigi") : setName("Mario")}>Change Name</button>
 
     {tickerCount > 0 && tickerData?.map((item) => (
+      
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
+          transition={{ duration: 0.5 }}
+          key={Math.random()}
         >        
         <TickerRow key={Math.random()} props={item}></TickerRow>  
         </motion.div>    

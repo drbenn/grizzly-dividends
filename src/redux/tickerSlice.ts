@@ -63,14 +63,13 @@ export const tickerSlice = createSlice({
       }      
     },
     removeTickerData: (state, action: PayloadAction<string>) => {
-      return {...state, tickerData: state.tickerData[0].filter((ticker) => ticker["ticker"] !== action.payload)}
+      return {...state, tickerData: state.tickerData.filter((ticker) => ticker["ticker"] !== action.payload)}
     },
     addTickerData: (state, action: PayloadAction<any[]>) => {
       return {
         ...state,
-        tickerData: [
+        tickerData: 
           action.payload
-        ]
       }
       // return {
       //   ...state,
