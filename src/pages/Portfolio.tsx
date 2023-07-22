@@ -38,7 +38,7 @@ export default function Portfolio() {
 
   function handleAddTickerData(data:TickerDetail[]) {
     dispatch(addTickerData(data))
-    console.log(data);
+    // console.log(data);
     // data.forEach((item) => {
     //   const profileTicker = {"ticker": item.ticker, "amount":1000};
     //   dispatch(addProfileTicker(profileTicker))
@@ -81,8 +81,8 @@ export default function Portfolio() {
         res => res.json()
       ).then(
         data => {
-        console.log("portfolio data response");
-        console.log(data);
+        // console.log("portfolio data response");
+        // console.log(data);
         if (!data.length) {
           toastMessage(`Ticker not available, search for a different ticker`);
         }
@@ -111,7 +111,7 @@ export default function Portfolio() {
       transition={{ duration: 1 }}
     >
     <div className='page-title'>Portfolio</div>
-    {/* <SummaryDashboard /> */}
+    <SummaryDashboard />
     <TickerSearchBar />
 
 

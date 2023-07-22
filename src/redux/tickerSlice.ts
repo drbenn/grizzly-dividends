@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -8,7 +9,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../redux/store'
 import {  toast } from 'react-toastify';
-import { TickerDetail } from '../types';
+import { TickerAmount, TickerDetail } from '../types';
 
 export interface DeepDiveTicker {
   "ticker": string,
@@ -29,7 +30,8 @@ const initialState: TickerState = {
   tickers: [],
   tickerData: [],
   deepDiveTicker: {},
-  profileTickers: [{ticker: "HD", amount: 2000}, {ticker: "LAND", amount: 1300}]
+  profileTickers: []
+  // profileTickers: [{ticker: "HD", amount: 2000}, {ticker: "LAND", amount: 1300}]
 }
 
 
@@ -80,6 +82,26 @@ export const tickerSlice = createSlice({
       //   ]
       // }
     },
+    updateTickerAmount: (state, action: PayloadAction<TickerAmount>) => {
+      console.log(action.payload);
+      
+      return {
+        ...state,
+        tickerData: state.tickerData.map((item) => {
+          if (item.ticker == action.payload.ticker) {
+            return {...item, amount: action.payload.amount}
+          } 
+        
+        }),
+      }
+      // return {
+      //   ...state,
+      //   tickerData: [
+      //     action.payload,
+      //     ...state.tickerData,
+      //   ]
+      // }
+    },
     // TODO - removeTickerData - activate at same time as removeTicker
     updateDeepDiveTicker: (state, action: PayloadAction<any>) => {
       // state.deepDiveTicker.ticker = action.payload.ticker;
@@ -104,8 +126,8 @@ export const tickerSlice = createSlice({
 
     },
     updateProfileTickers: (state, action: PayloadAction<DeepDiveTicker>) => {
-      console.log("ACTION PAYLOAD");
-      console.log(action.payload);
+      // console.log("ACTION PAYLOAD");
+      // console.log(action.payload);
       
       
       // const current = {...state};
@@ -171,6 +193,6 @@ export const tickerSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addTicker, removeTicker, removeTickerData, addTickerData, updateDeepDiveTicker, addProfileTicker, updateProfileTickers } = tickerSlice.actions
+export const { addTicker, removeTicker, removeTickerData, addTickerData, updateTickerAmount, updateDeepDiveTicker, addProfileTicker, updateProfileTickers } = tickerSlice.actions
 
 export default tickerSlice.reducer

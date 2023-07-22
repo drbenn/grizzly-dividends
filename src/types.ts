@@ -28,6 +28,18 @@ export type AnnualDividend = {
   yoy_linear_growth_rate: number;
 }
 
+export type TickerAmount = {
+  ticker: string;
+  amount: number;
+}
+
+export type SummaryChart = {
+  ticker: string;
+  amount: number;
+  yield: number;
+  payMonths: string[];
+}
+
 
 export type TickerDetail = {
   ticker: string;

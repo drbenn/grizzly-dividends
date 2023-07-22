@@ -1,69 +1,142 @@
-import { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { useEffect, useState } from 'react'
 import './summarydashboard.scss'
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
+import {Chart as ChartJS,CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { SummaryChart, TickerDetail } from '../types';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-export const options = {
-  plugins: {
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart - Stacked',
-    },
-  },
-  responsive: true,
-  scales: {
-    x: {
-      stacked: true,
-    },
-    y: {
-      stacked: true,
-    },
-  },
-};
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [5,4,3,2,1,0,1,],
-      backgroundColor: 'rgb(255, 99, 132)',
-    },
-    {
-      label: 'Dataset 2',
-      data: [5,4,3,2,1,0,1,],
-      backgroundColor: 'rgb(75, 192, 192)',
-    },
-    {
-      label: 'Dataset 3',
-      data: [5,4,3,2,1,0,1,],
-      backgroundColor: 'rgb(53, 162, 235)',
-    },
-  ],
-};
+ChartJS.register(CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend);
 
 
-export default function SummaryDashboard(props) { 
-  console.log(props)
+
+
+export default function SummaryDashboard() { 
+  const stateData: TickerDetail[] = useSelector((state: RootState) => state.store.tickerData);
+  console.log(stateData);
+  const [chartData, setChartData] = useState<SummaryChart[]>();
+  const [chartOptions, setChartOptions] = useState<any>();
+  const [totalInvestDisplay, setTotalInvestDisplay] = useState(0);
+  const [simpleTotal, setSimpleTotal] = useState(0);
+  const [simpleBlendedRate, setSimpleBlendedRate] = useState<any>(0);
+  // const [dripTotal, setDripTotal] = useState(0);
+  // const [dripBlendedRate, setDripBlendedRate] = useState(0);
+  // const [megaDripTotal, setMegaDripTotal] = useState(0);
+  // const [megaDripBlendedRate, setMegaDripBlendedRate] = useState(0);
+  const monthIndexes = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov:10, Dec: 11 };
+  const chartColors2 = ['#70d6ff','#ff70a6','#ff9770','#ffd670','#e9ff70','#333745','#e63462','#fe5f55','#c7efcf','#eef5db', '#70d6ffbf','#ff70a6bf','#ff9770bf','#ffd670bf','#e9ff70bf','#333745bf','#e63462bf','#fe5f55bf','#c7efcfbf','#eef5dbbf', '#70d6ff80','#ff70a680','#ff977080','#ffd67080','#e9ff7080','#33374580','#e6346280','#fe5f5580','#c7efcf80','#eef5db80']
+
+  useEffect(() => {
+    console.log("in summary useEffect");
+    console.log(stateData);
+    const dataWithAmounts: TickerDetail[] = stateData.map((item) => {
+      const amount: number = item.amount ? item.amount : 1000;
+      return {...item, amount: amount};
+    })
+    const chartData: SummaryChart[] = dataWithAmounts.map((item) => {
+      return {ticker: item.ticker, amount: Number(item.amount), yield: Number(item.dividend_yield), payMonths: item.dividend_payment_months_and_count.dividend_payment_months}
+    })
+    console.log("UHUHUHUH");
+    console.log(dataWithAmounts);
+    setChartData(chartData);
+    if (chartData) {
+      getSimpleDataSeries(chartData)
+    }
+    
+    
+    // const chartData = stateData.map((item => {ticker: item.ticker}))
+    // console.log(chartData.ticker);
+    
+    // const chartData: SummaryChart[] = stateData.map((item => {"ticker": item.ticker , "amount": item.amount? item.amount : 1000 , "yield", payMonths:}))
+
+  }, [stateData]);
+
+  const getSimpleDataSeries = (data:SummaryChart[]) => {
+    console.log("DATA!");
+    console.log(data);
+    
+    
+    let totalInvest = 0;
+    let totalSimpleAnnualDivIncome = 0;
+    // let simpleDataSeries = [];
+    let simpleReturn = []; 
+    let colorIndex = 0;
+    data.forEach((item) => {
+      let monthlySeries = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      const payments = item.payMonths.length;
+      const simpleAnnualYield = item.amount * item.yield; 
+      const monthlyAmount = (simpleAnnualYield / payments);
+      totalInvest += Number(item.amount.toFixed(2))
+      totalSimpleAnnualDivIncome += Number(simpleAnnualYield.toFixed(2));
+  
+      item.payMonths.forEach((pMonth) => {
+        monthlySeries[monthIndexes[pMonth]] += Number(monthlyAmount.toFixed(2));
+      })
+      // simpleDataSeries.push(monthlySeries)
+      simpleReturn.push({label: item.ticker, data: monthlySeries, backgroundColor: chartColors2[colorIndex]});
+      colorIndex++;
+    })
+    const formatPercent = (percent: number) => {
+      return (percent * 100).toFixed(2);
+    }
+  
+    // totalInvestDisplay = totalInvest // TO REMOVE FOR STATE ITEM
+    let simpleBlendedRate = Number((totalSimpleAnnualDivIncome/totalInvest).toFixed(4))
+    setTotalInvestDisplay(totalInvest);
+    setSimpleTotal(totalSimpleAnnualDivIncome);
+    setSimpleBlendedRate(formatPercent(simpleBlendedRate));
+    setChartOptions({"title": 'Simple Dividend Return'})
+    console.log(totalInvest);
+    console.log(totalSimpleAnnualDivIncome);
+    console.log(simpleBlendedRate);
+    console.log(simpleReturn);
+    return simpleReturn;
+  }
+
+  const options = {
+    plugins: {
+      title: {
+        display: true,
+        text: 'Dividend Return'
+      },
+    },
+    responsive: true,
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
+    },
+  };
+  
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: [5,4,3,2,1,0,1,],
+        backgroundColor: 'rgb(255, 99, 132)',
+      },
+      {
+        label: 'Dataset 2',
+        data: [5,4,3,2,1,0,1,],
+        backgroundColor: 'rgb(75, 192, 192)',
+      },
+      {
+        label: 'Dataset 3',
+        data: [5,4,3,2,1,0,1,],
+        backgroundColor: 'rgb(53, 162, 235)',
+      },
+    ],
+  };
+  
   
 
   const testData = [
@@ -477,7 +550,7 @@ export default function SummaryDashboard(props) {
             Blended Yield
           </div>
           <div className='metric-number'>
-            {"X.XX"}%
+            {simpleBlendedRate}%
           </div>
         </div>
 
@@ -486,7 +559,7 @@ export default function SummaryDashboard(props) {
             Annual Dividends
           </div>
           <div className='metric-number'>
-            ${"X.XX"}
+            ${new Intl.NumberFormat('en-US').format(simpleTotal)}
           </div>
         </div>
 
@@ -495,7 +568,7 @@ export default function SummaryDashboard(props) {
             Total Investment
           </div>
           <div className='metric-number'>
-            ${"X.XX"}
+            ${new Intl.NumberFormat('en-US').format(totalInvestDisplay)}
           </div>
         </div>
 

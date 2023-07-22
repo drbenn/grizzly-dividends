@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 import detailIcon from '/line-chart.png'
 import close from '/close.png'
 import './tickerrow.scss'
-import { removeTicker, removeTickerData, updateDeepDiveTicker, updateProfileTickers } from '../redux/tickerSlice'
+import { removeTicker, removeTickerData, updateDeepDiveTicker, updateProfileTickers, updateTickerAmount } from '../redux/tickerSlice'
 import { useDispatch } from 'react-redux'
 import info from '/info.png'
 
@@ -16,6 +16,7 @@ import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/perspective-subtle.css';
 import DeepDive from './DeepDive'
 import { useNavigate } from 'react-router-dom'
+import { TickerAmount } from '../types'
 
 
 const currencyFormat = new Intl.NumberFormat("en-US", {
@@ -29,9 +30,6 @@ export default function TickerRow({...props}) {
   const [divYield, setDivYield] = useState(2)
   const [amount, setAmount] = useState('1000')
   const [annualDividend, setAnnualDividend] = useState(0)
-  // console.log('row props');
-  // console.log(props);
-  
   
   useEffect(() => { 
     const dividendYield = Number(yieldFormat(props?.props["dividend_yield"]))
@@ -41,7 +39,7 @@ export default function TickerRow({...props}) {
     setAnnualDividend(newAnnualDividend)
     const ticker: string = props?.props["ticker"];
     const investAmount: number = Number(amount);
-    dispatch(updateProfileTickers({"ticker":ticker, "amount": investAmount}))
+    // dispatch(updateProfileTickers({"ticker":ticker, "amount": investAmount}))
   }, [amount, divYield])
 
 
@@ -53,16 +51,20 @@ export default function TickerRow({...props}) {
 
   const handleDeepDiveTicker = () => {
     // console.log("handle/update Deep Dive ticker")
-    const ticker: string = props?.props["ticker"];
-    const investAmount: number = Number(amount);
+    // const ticker: string = props?.props["ticker"];
+    // const investAmount: number = Number(amount);
     dispatch(updateDeepDiveTicker(props?.props))
     navigate("/detail")  
   }
 
   const handleAmountChange = (value: string) => {
     const ticker: string = props?.props["ticker"];
-    const investAmount: number = Number(amount);
+    const investAmount: number = Number(value);
     setAmount(Number(value));
+    console.log(`handle row amount changed: ${ticker} / ${investAmount}`);
+    const tickerAmount: TickerAmount = {ticker: ticker, amount:investAmount};
+    dispatch(updateTickerAmount(tickerAmount))
+    
   }
 
   const yieldFormat = (num: number) => {
