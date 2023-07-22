@@ -10,7 +10,6 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Navbar from './components/Navbar'
 import NoMatch from './pages/Nomatch'
-import { Counter } from './pages/Counter';
 import Detail from './pages/Detail';
 
 
@@ -25,7 +24,6 @@ function App() {
           <Route path='detail' element={<Detail />} />
           <Route path='register' element={<Register />} />
           <Route path='login' element={<Login />} />
-          <Route path='counter' element={<Counter />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </AnimatePresence>

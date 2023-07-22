@@ -8,6 +8,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../redux/store'
 import {  toast } from 'react-toastify';
+import { TickerDetail } from '../types';
 
 export interface DeepDiveTicker {
   "ticker": string,
@@ -28,7 +29,7 @@ const initialState: TickerState = {
   tickers: [],
   tickerData: [],
   deepDiveTicker: {},
-  profileTickers: []
+  profileTickers: [{ticker: "HD", amount: 2000}, {ticker: "LAND", amount: 1300}]
 }
 
 
@@ -65,7 +66,7 @@ export const tickerSlice = createSlice({
     removeTickerData: (state, action: PayloadAction<string>) => {
       return {...state, tickerData: state.tickerData.filter((ticker) => ticker["ticker"] !== action.payload)}
     },
-    addTickerData: (state, action: PayloadAction<any[]>) => {
+    addTickerData: (state, action: PayloadAction<TickerDetail[]>) => {
       return {
         ...state,
         tickerData: 
@@ -91,10 +92,25 @@ export const tickerSlice = createSlice({
       }
 
     },
-    updateProfileTickers: (state, action: PayloadAction<DeepDiveTicker>) => {
+    addProfileTicker: (state, action: PayloadAction<any>) => {
       const current = {...state};
-      const tickers = current.profileTickers
-      const newArray = tickers.slice()
+      const pTickers = current.profileTickers
+      if (!pTickers) {
+        pTickers.push(action.payload)
+      } else {
+        
+        pTickers.includes(action.payload) ? current : pTickers.push(action.payload)
+      }
+
+    },
+    updateProfileTickers: (state, action: PayloadAction<DeepDiveTicker>) => {
+      console.log("ACTION PAYLOAD");
+      console.log(action.payload);
+      
+      
+      // const current = {...state};
+      // const tickers = current.profileTickers
+      // const newArray = tickers.slice()
       // console.log(action.payload)
       // console.log("TICKERS?");
       // console.log(tickers);
@@ -102,28 +118,28 @@ export const tickerSlice = createSlice({
       
       
       
-      if (!tickers) {
-        // tickers.push(action.payload)
-        return {
-          ...state,
-          profileTickers: [
-            action.payload
-          ]
-        }
-      } 
-      if (tickers) {
-        const index = tickers.findIndex(item => item.ticker === action.payload)
-        // console.log("INDEX");
-        // console.log(index);
+      // if (!tickers) {
+      //   // tickers.push(action.payload)
+      //   return {
+      //     ...state,
+      //     profileTickers: [
+      //       action.payload
+      //     ]
+      //   }
+      // } 
+      // if (tickers) {
+      //   const index = tickers.findIndex(item => item.ticker === action.payload)
+      //   // console.log("INDEX");
+      //   // console.log(index);
         
         
-        if (index === -1) {
-          tickers.push(action.payload)
-        } 
-        else {
-          tickers[index] = action.payload
-        }
-      }
+      //   if (index === -1) {
+      //     tickers.push(action.payload)
+      //   } 
+      //   else {
+      //     tickers[index] = action.payload
+      //   }
+      // }
 
 
       // const currentProfileTickers = state.profileTickers;
@@ -155,6 +171,6 @@ export const tickerSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addTicker, removeTicker, removeTickerData, addTickerData, updateDeepDiveTicker, updateProfileTickers } = tickerSlice.actions
+export const { addTicker, removeTicker, removeTickerData, addTickerData, updateDeepDiveTicker, addProfileTicker, updateProfileTickers } = tickerSlice.actions
 
 export default tickerSlice.reducer

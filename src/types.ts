@@ -49,4 +49,5 @@ export type TickerDetail = {
   backup_stock_price_date_saved: string;
   dividend_payment_months_and_count: DividendMonthsAndType;
   annual_dividend: AnnualDividend[];
+  amount?: number;
 }

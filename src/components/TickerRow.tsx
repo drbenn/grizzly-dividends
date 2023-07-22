@@ -4,8 +4,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useState, useEffect } from 'react'
-// import hamburger from '/hamburger.svg'
-// import logo from '/bear3.png'
 import detailIcon from '/line-chart.png'
 import close from '/close.png'
 import './tickerrow.scss'
@@ -167,7 +165,7 @@ export default function TickerRow({...props}) {
           Dividends
         </div>
         <div className='cell-detail'>
-          ${new Intl.NumberFormat('en-US').format(annualDividend)}/Yr
+          ${new Intl.NumberFormat('en-US').format(annualDividend * 0.01)}/Yr
         </div>
       </div>
       <div className='cell'>

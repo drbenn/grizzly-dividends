@@ -56,7 +56,7 @@ export default function Navbar() {
             <li>
               <NavLink to="/portfolio">Portfolio</NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink to="/register">Register</NavLink>
             </li>
             <li>
@@ -64,13 +64,7 @@ export default function Navbar() {
             </li>
             <li>
               <button onClick={handleLogoutClick}>Logout</button>
-            </li>
-            <li>
-              <NavLink to="/counter">Store Count</NavLink>
-            </li>
-            <li>
-              U
-            </li>
+            </li> */}
           </ul>
         </div>
     </nav>
