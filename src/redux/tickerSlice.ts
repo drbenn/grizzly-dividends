@@ -43,7 +43,9 @@ export const tickerSlice = createSlice({
   name: 'tickers',
   initialState,
   reducers: {
-    addTicker: (state, action: PayloadAction<string>) => {
+    addTicker: (state, action: PayloadAction<any>) => {
+      console.log("THIS WORKS?");
+      
       const current = {...state};
       const tickers = current.tickers
       if (!tickers) {
@@ -59,7 +61,7 @@ export const tickerSlice = createSlice({
       //   ]
       // }
     },
-    addSearchTickers: (state, action: PayloadAction<any>) => {
+    addSearchTickers: (state, action: PayloadAction<SearchTickers[]>) => {
       return {
         ...state,
         navSearchTickers: 

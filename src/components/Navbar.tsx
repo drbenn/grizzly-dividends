@@ -1,14 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import './navbar.scss'
 import hamburger from '/hamburger.svg'
 import logo from '/bear3.png'
+
+import { SearchTickers } from '../types'
 import { addSearchTickers } from '../redux/tickerSlice'
+import { useDispatch } from 'react-redux'
 // import logo from '/logo.svg'
 
 
 export default function Navbar() {
+  const dispatch = useDispatch();
   const [showNavbar, setShowNavbar] = useState(false)
 
   const handleShowNavbar = () => {
@@ -20,14 +28,17 @@ export default function Navbar() {
   }
     
   useEffect(() => {
-    console.log("useEffect NAV Run and add search tickers to state");
     fetch("http://localhost:5000/searchtickers", {
       method: 'GET'
     }).then(
       res => res.json()
     ).then(
       data => {
-        addSearchTickers(data);
+        const dataToSearchTickers: SearchTickers[] = data.map((item:[string,string]) => {
+          return {"ticker": item[0], "name":item[1]}
+        })
+        dataToSearchTickers.sort((a,b) => a.ticker.localeCompare(b.ticker) );
+        dispatch(addSearchTickers(dataToSearchTickers));
     })
   }, []);
 

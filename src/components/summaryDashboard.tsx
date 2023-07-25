@@ -58,6 +58,10 @@ export default function SummaryDashboard() {
       displayData = getMegaDripDataSeries(chartData)
       setBlendedRateDisplay(megaDripBlendedRate)
     }
+    // if (totalSimpleInvestDisplay === 0 || totalDripInvestDisplay === 0 || totalMegaDripInvestDisplay === 0 ) {
+    //   setBlendedRateDisplay('');
+    // }
+
     setChartData(displayData);
 
   }, [stateData, chartSelected, blendedRateDisplay]);

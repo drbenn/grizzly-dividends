@@ -31,7 +31,8 @@ body {
 .page-title {
   margin: 4rem 0rem 6rem 0rem;
   padding: 0.5rem 4rem;
-  background-color: $dark-3;
+  // background-color: $dark-3;
+  border-bottom: 5px solid $dark-3;
   color: $dark-1;
   font-size: 4rem;
   font-weight: 400;

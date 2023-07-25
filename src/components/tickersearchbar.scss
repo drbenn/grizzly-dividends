@@ -22,3 +22,43 @@
   background-color: $dark-2;
   transition: 150ms background-color ease-in;
 }
+
+// .search-container {
+//   width: 280px;
+//   display: flex;
+//   flex-direction: column;
+// }
+
+.dropdown {
+  background-color: white;
+  width: clamp(14.8rem, 5rem + 21.2vw, 20.8rem);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  position: absolute;
+  transform: translateY(-2rem);
+}
+
+.dropdown:empty {
+  border: none;
+}
+
+.dropdown-row {
+  cursor: pointer;
+  text-align: start;
+  margin: 2px 0;
+  transition: 50ms ease-in;
+}
+
+.dropdown-row:hover {
+  background-color: red;
+  transition: 50ms ease-in;
+}
+
+input {
+  width: 220px;
+}
+
+.search-inner {
+  display: flex;
+}
