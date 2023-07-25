@@ -41,7 +41,7 @@ export default function PaymentChart({props}) {
     plugins: {
       title: {
         display: true,
-        text: 'Payout Ratio by Year',
+        text: 'Payment/Share by Year',
         font: {size: 16, weight: 400, family: 'Poppins'},
         color: '#3a3a3a'
       },

@@ -73,20 +73,7 @@ export default function TickerRow({...props}) {
   }
 
   const payoutFormat = (num: number) => {
-    const string = String(num)
-    let newString = '';
-    let returnString = '';
-    for (let i = 0; i < 5; i++) {
-      if (string[i] === '.') {
-        newString += '' 
-      } else {newString += string[i]}
-    }
-    for (let i = 0; i < 4; i++) {
-      if (i === 2) {
-        returnString += '.' + newString[i]
-      } else {returnString += newString[i]}
-    }
-    return returnString
+    return (num * 100).toFixed(2);
   }
 
   const fiveYrCagrFormat = (num: number) => {

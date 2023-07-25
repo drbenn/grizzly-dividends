@@ -1,14 +1,14 @@
-import { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import './navbar.scss'
 import hamburger from '/hamburger.svg'
 import logo from '/bear3.png'
+import { addSearchTickers } from '../redux/tickerSlice'
 // import logo from '/logo.svg'
 
 
 export default function Navbar() {
-
-
   const [showNavbar, setShowNavbar] = useState(false)
 
   const handleShowNavbar = () => {
@@ -19,6 +19,17 @@ export default function Navbar() {
     alert("User logging out...");
   }
     
+  useEffect(() => {
+    console.log("useEffect NAV Run and add search tickers to state");
+    fetch("http://localhost:5000/searchtickers", {
+      method: 'GET'
+    }).then(
+      res => res.json()
+    ).then(
+      data => {
+        addSearchTickers(data);
+    })
+  }, []);
 
 
   return (

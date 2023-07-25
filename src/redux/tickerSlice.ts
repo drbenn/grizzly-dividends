@@ -9,7 +9,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../redux/store'
 import {  toast } from 'react-toastify';
-import { TickerAmount, TickerDetail } from '../types';
+import { SearchTickers, TickerAmount, TickerDetail } from '../types';
 
 export interface DeepDiveTicker {
   "ticker": string,
@@ -21,7 +21,8 @@ export interface TickerState {
   tickers: string[],
   tickerData: any[],
   deepDiveTicker: {},
-  profileTickers: DeepDiveTicker[]
+  profileTickers: DeepDiveTicker[],
+  navSearchTickers: SearchTickers[],
 }
 
 const initialState: TickerState = {
@@ -30,7 +31,8 @@ const initialState: TickerState = {
   tickers: [],
   tickerData: [],
   deepDiveTicker: {},
-  profileTickers: []
+  profileTickers: [],
+  navSearchTickers: [],
   // profileTickers: [{ticker: "HD", amount: 2000}, {ticker: "LAND", amount: 1300}]
 }
 
@@ -56,6 +58,13 @@ export const tickerSlice = createSlice({
       //     ...state.tickers,
       //   ]
       // }
+    },
+    addSearchTickers: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        navSearchTickers: 
+          action.payload
+      }
     },
     removeTicker: (state, action: PayloadAction<string>) => {
       toastMessage(`${action.payload} removed`)
@@ -83,24 +92,17 @@ export const tickerSlice = createSlice({
       // }
     },
     updateTickerAmount: (state, action: PayloadAction<TickerAmount>) => {
-      console.log(action.payload);
-      
       return {
         ...state,
         tickerData: state.tickerData.map((item) => {
-          if (item.ticker == action.payload.ticker) {
+          if (item.ticker === action.payload.ticker) {
             return {...item, amount: action.payload.amount}
           } 
-        
+          if (item.ticker !== action.payload.ticker) {
+            return {...item}
+          } 
         }),
       }
-      // return {
-      //   ...state,
-      //   tickerData: [
-      //     action.payload,
-      //     ...state.tickerData,
-      //   ]
-      // }
     },
     // TODO - removeTickerData - activate at same time as removeTicker
     updateDeepDiveTicker: (state, action: PayloadAction<any>) => {
@@ -193,6 +195,6 @@ export const tickerSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addTicker, removeTicker, removeTickerData, addTickerData, updateTickerAmount, updateDeepDiveTicker, addProfileTicker, updateProfileTickers } = tickerSlice.actions
+export const { addTicker, addSearchTickers, removeTicker, removeTickerData, addTickerData, updateTickerAmount, updateDeepDiveTicker, addProfileTicker, updateProfileTickers } = tickerSlice.actions
 
 export default tickerSlice.reducer

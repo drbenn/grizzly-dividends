@@ -29,7 +29,7 @@ export default function PayoutChart({props}) {
   let dataSet = []
   props.forEach((item) => {
     yAxisLabels.unshift(item.year)
-    dataSet.unshift(Number(item.payout_ratio * 100000000000).toFixed(2))
+    dataSet.unshift(Number(item.payout_ratio * 100).toFixed(2))
   })
 
   const options = {

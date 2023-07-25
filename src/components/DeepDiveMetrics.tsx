@@ -45,7 +45,7 @@ export default function DeepDiveMetrics({data}) {
       </div>
       <div className='metrics-container'>
         <div className='metric-title'>Payout Ratio</div>
-        <div> { (data.payout_ratios[0].payout_ratio * 100000000000).toFixed(2)}%</div>
+        <div> { (data.payout_ratios[0].payout_ratio * 100).toFixed(2)}%</div>
       </div>
       <div className='metrics-container'>
         <div className='metric-title'>3 Year CAGR</div>

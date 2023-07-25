@@ -40,6 +40,16 @@ export type SummaryChart = {
   payMonths: string[];
 }
 
+export type ChartJsSummaryData = {
+  backgroundColor: string;
+  data: number[];
+  label: string;
+}
+
+export type SearchTickers = {
+  ticker: string;
+  name: string;
+}
 
 export type TickerDetail = {
   ticker: string;
