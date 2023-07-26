@@ -1,8 +1,23 @@
 @import '../variables.scss';
 
+
+.button-and-dash-column {
+  width: 100%;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.button-group {
+  margin-bottom: 2rem;
+}
+
 .dash-container {
   width: 80%;
-  min-height: 10vh;
+  min-height: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -41,14 +56,14 @@
 .total-title {
   margin-bottom: 0rem;
   font-weight: 400;
-  text-decoration: underline;
+  // text-decoration: underline;
   line-height: 2;
   white-space: pre-wrap;
 }
 
 .summary-chart-container {
-  width: clamp(25rem, 50vw, 50rem);
-  height: clamp(20rem, 35vw, 25rem);
+  width: clamp(25rem, 50vw, 35rem);
+  height: clamp(20rem, 35vw, 21rem);
   text-align: center;
 }
 

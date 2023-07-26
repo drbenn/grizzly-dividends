@@ -234,49 +234,57 @@ export default function SummaryDashboard() {
   
   return (
     <>
-    {totalSimpleInvestDisplay > 0 &&
+    {/* {totalSimpleInvestDisplay > 0 && */}
 
-    
+    <div className='button-and-dash-column'>
+      <div className='button-group'>
+        <button onClick={() => handleChartSelection("simple")} className='chart-type-button'>Simple</button>
+        <button onClick={() => handleChartSelection("drip")} className='chart-type-button'>DRIP</button>
+        <button onClick={() => handleChartSelection("megadrip")} className='chart-type-button'>DRIP(10)</button>
+      </div>
       <div className='dash-container'>
         <div className='metric-container'>
 
-          <div>
-            <button onClick={() => handleChartSelection("simple")} className='chart-type-button'>Simple</button>
-            <button onClick={() => handleChartSelection("drip")} className='chart-type-button'>DRIP</button>
-            <button onClick={() => handleChartSelection("megadrip")} className='chart-type-button'>DRIP(10)</button>
-          </div>
+
           <div className='blended-yield-box'>
             <div className='total-title'>
-              Blended Yield
-            </div>
-            <div className='metric-number'>
+              Blended Yield: <span className='metric-number'>
               {blendedRateDisplay}
               %
+            </span>
             </div>
+            {/* <div className='metric-number'>
+              {blendedRateDisplay}
+              %
+            </div> */}
           </div>
 
           <div className='annual-income-box'>
             <div className='total-title'>
-              Annual Dividends
+              Annual Dividends: ${chartSelected === 'simple' && new Intl.NumberFormat('en-US').format(simpleAnnualDividends) }
+              {chartSelected === 'drip' && new Intl.NumberFormat('en-US').format(dripAnnualDividends) }
+              {chartSelected === 'megadrip' && new Intl.NumberFormat('en-US').format(megaDripAnnualDividends) }
             </div>
-            <div className='metric-number'>
+            {/* <div className='metric-number'>
               $
               {chartSelected === 'simple' && new Intl.NumberFormat('en-US').format(simpleAnnualDividends) }
               {chartSelected === 'drip' && new Intl.NumberFormat('en-US').format(dripAnnualDividends) }
               {chartSelected === 'megadrip' && new Intl.NumberFormat('en-US').format(megaDripAnnualDividends) }
-            </div>
+            </div> */}
           </div>
 
           <div className='total-invested-box'>
             <div className='total-title'>
-              Total Investment
+              Total Investment: ${chartSelected === 'simple' && new Intl.NumberFormat('en-US').format(totalSimpleInvestDisplay) }
+              {chartSelected === 'drip' && new Intl.NumberFormat('en-US').format(totalDripInvestDisplay) }
+              {chartSelected === 'megadrip' && new Intl.NumberFormat('en-US').format(totalMegaDripInvestDisplay) }
             </div>
-            <div className='metric-number'>
+            {/* <div className='metric-number'>
               $
               {chartSelected === 'simple' && new Intl.NumberFormat('en-US').format(totalSimpleInvestDisplay) }
               {chartSelected === 'drip' && new Intl.NumberFormat('en-US').format(totalDripInvestDisplay) }
               {chartSelected === 'megadrip' && new Intl.NumberFormat('en-US').format(totalMegaDripInvestDisplay) }
-            </div>
+            </div> */}
           </div>
 
         </div>
@@ -284,7 +292,8 @@ export default function SummaryDashboard() {
           <Bar options={options} data={data} />
         </div>
       </div>
-    }
+    </div>
+    {/* } */}
     </>
   )
 }
