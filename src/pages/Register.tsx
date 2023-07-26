@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { motion } from "framer-motion";
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { userLogin } from '../redux/tickerSlice';
 
 export default function Register() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleSubmitRegistration: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const formData: FormData = new FormData(event.currentTarget);
@@ -35,6 +38,7 @@ export default function Register() {
       // Handle the response from the server as needed
       if (response.ok) {
         console.log('User registration successful!');    
+        dispatch(userLogin(true));  
         navigate("/portfolio")    
       } else {       
         console.error('User registration failed.');

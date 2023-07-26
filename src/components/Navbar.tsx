@@ -8,16 +8,21 @@ import { NavLink } from 'react-router-dom'
 import './navbar.scss'
 import hamburger from '/hamburger.svg'
 import logo from '/bear3.png'
+import logout from '/logout.png'
 
 import { SearchTickers } from '../types'
-import { addSearchTickers } from '../redux/tickerSlice'
-import { useDispatch } from 'react-redux'
+import { addSearchTickers, userLogout } from '../redux/tickerSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../redux/store'
 // import logo from '/logo.svg'
 
 
 export default function Navbar() {
   const dispatch = useDispatch();
-  const [showNavbar, setShowNavbar] = useState(false)
+  const isUserLoggedInState = useSelector((state: RootState) => state.store.isLoggedIn);
+  const [showNavbar, setShowNavbar] = useState(false);
+  const [areSearchTickersReceived, setAreSearchTickersReceived] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar)
@@ -25,22 +30,35 @@ export default function Navbar() {
 
   const handleLogoutClick = () => {
     alert("User logging out...");
+    setIsLoggedIn(false);
+    dispatch(userLogout(false));
   }
     
   useEffect(() => {
-    fetch("http://localhost:5000/searchtickers", {
-      method: 'GET'
-    }).then(
-      res => res.json()
-    ).then(
-      data => {
-        const dataToSearchTickers: SearchTickers[] = data.map((item:[string,string]) => {
-          return {"ticker": item[0], "name":item[1]}
-        })
-        dataToSearchTickers.sort((a,b) => a.ticker.localeCompare(b.ticker) );
-        dispatch(addSearchTickers(dataToSearchTickers));
-    })
-  }, []);
+    console.log(`Nav is logged in: ${isLoggedIn}`);
+    console.log(isUserLoggedInState);
+    
+    
+    setIsLoggedIn(isUserLoggedInState);
+    if (!areSearchTickersReceived) {
+      fetch("http://localhost:5000/searchtickers", {
+        method: 'GET'
+      }).then(
+        res => res.json()
+      ).then(
+        data => {
+          const dataToSearchTickers: SearchTickers[] = data.map((item:[string,string]) => {
+            return {"ticker": item[0], "name":item[1]}
+          })
+          dataToSearchTickers.sort((a,b) => a.ticker.localeCompare(b.ticker) );
+          dispatch(addSearchTickers(dataToSearchTickers));
+          if (dataToSearchTickers.length > 0) {
+            setAreSearchTickersReceived(true)
+          }
+      })
+    }
+
+  }, [isUserLoggedInState, isLoggedIn]);
 
 
   return (
@@ -78,15 +96,33 @@ export default function Navbar() {
             <li>
               <NavLink to="/portfolio">Portfolio</NavLink>
             </li>
-            {/* <li>
+            {!isLoggedIn && 
+            <li>
               <NavLink to="/register">Register</NavLink>
             </li>
+            }
+            {!isLoggedIn &&
             <li>
               <NavLink to="/login">Log In</NavLink>
-            </li>
+            </li>           
+            }
+            {isLoggedIn &&
             <li>
-              <button onClick={handleLogoutClick}>Logout</button>
-            </li> */}
+              <div className='logout-flex' onClick={handleLogoutClick}>
+                <div className='logout-text'>Logout</div>
+                <div>
+                  <img 
+                    src={logout}         
+                    alt={'User Logout'}
+                    style={{
+                    width: 18,
+                    height: 18
+                  }}
+                  />
+                </div>
+              </div>
+            </li>
+            }
           </ul>
         </div>
     </nav>

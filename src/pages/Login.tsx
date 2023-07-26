@@ -4,9 +4,12 @@
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userLogin } from '../redux/tickerSlice';
 
 export default function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleSubmitLogin: React.FormEventHandler<HTMLFormElement> = async (event) => {
     const formData: FormData = new FormData(event.currentTarget);
     event.preventDefault();
@@ -35,7 +38,8 @@ export default function Login() {
       // Handle the response from the server as needed
       if (response.ok) {
         console.log('User login successful!');
-        // TODO: GET USER DATA After successful login    
+        // TODO: GET USER DATA After successful login  
+        dispatch(userLogin(true));  
         navigate("/portfolio")    
       } else {       
         console.error('User login failed.');

@@ -43,6 +43,18 @@ export const tickerSlice = createSlice({
   name: 'tickers',
   initialState,
   reducers: {
+    userLogin: (state, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isLoggedIn: action.payload
+      }
+    },
+    userLogout: (state, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isLoggedIn: action.payload
+      }
+    },
     addTicker: (state, action: PayloadAction<any>) => {
       const current = {...state};
       const tickers = current.tickers
@@ -195,6 +207,6 @@ export const tickerSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addTicker, addSearchTickers, removeTicker, removeTickerData, addTickerData, updateTickerAmount, updateDeepDiveTicker, addProfileTicker, updateProfileTickers } = tickerSlice.actions
+export const { userLogin, userLogout, addTicker, addSearchTickers, removeTicker, removeTickerData, addTickerData, updateTickerAmount, updateDeepDiveTicker, addProfileTicker, updateProfileTickers } = tickerSlice.actions
 
 export default tickerSlice.reducer

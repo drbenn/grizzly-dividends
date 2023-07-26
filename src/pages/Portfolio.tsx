@@ -111,8 +111,9 @@ export default function Portfolio() {
       transition={{ duration: 1 }}
     >
     <div className='page-title'>Portfolio</div>
-    <TickerSearchBar />
     <SummaryDashboard />
+    <TickerSearchBar />
+
 
 
     {tickerCount > 0 && tickerData?.map((item) => (

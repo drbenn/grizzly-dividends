@@ -81,6 +81,36 @@
   background-color: $nav-underline-color;
 }
 
+.logout-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  transform: translate(0rem, -0.2rem);
+  cursor: pointer;
+
+}
+
+.logout-text {
+  margin-right: 0.1rem;
+  font-weight: 500;
+  color: $dark-2;
+}
+
+.logout-flex img {
+  padding: 0rem 0.2rem;
+  transition: 150ms ease-in;
+  border-radius: 30px;
+  transform: translate(0rem, 0.2rem);
+}
+
+.logout-flex:hover img {
+  transition: 150ms ease-in;
+  border-radius: 30px;
+  background-color: $dark-3;
+}
+
 @media (max-width: 768px) {
   .nav-elements ul li:not(:last-child) {
     margin-right: 30px;
