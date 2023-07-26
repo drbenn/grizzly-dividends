@@ -1,7 +1,6 @@
 @import '../variables.scss';
 
 .dash-container {
-  // border: 1px solid red;
   width: 80%;
   min-height: 10vh;
   display: flex;
@@ -12,7 +11,6 @@
 }
 
 .metric-container {
-  // border: 1px solid blue;
   width: clamp(16rem, 25%, 22rem);
   height: 100%;
   display: flex;
@@ -26,19 +24,16 @@
 }
 
 .blended-yield-box {
-  // border: 1px solid grey;
   width: 100%;
   padding: 1rem 0rem;
 }
 
 .annual-income-box {
-  // border: 1px solid grey;
   width: 100%;
   padding: 1rem 0rem;
 }
 
 .total-invested-box {
-  // border: 1px solid grey;
   width: 100%;
   padding: 1rem 0rem;
 }
@@ -51,16 +46,11 @@
   white-space: pre-wrap;
 }
 
-.total-number {
-
-}
-
 .summary-chart-container {
   width: clamp(25rem, 50vw, 50rem);
   height: clamp(20rem, 35vw, 25rem);
   text-align: center;
 }
-
 
 .chart-type-button {
   width: 6rem;

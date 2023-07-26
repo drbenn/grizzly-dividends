@@ -1,31 +1,31 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import './summarydashboard.scss'
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
+import {Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 
-export default function PayoutChart({props}) { 
+
+export default function GrowthChart({props}) { 
+  
+
   const yAxisLabels: number[] = [];
   const dataSet: number[] = []
   props.forEach((item) => {
     yAxisLabels.unshift(item.year)
-    dataSet.unshift(Number(item.payout_ratio * 100).toFixed(2))
+    dataSet.unshift(Number(item.yoy_linear_growth_rate * 100).toFixed(2))
   })
-
+  
+  
   const options = {
     plugins: {
       title: {
         display: true,
-        text: 'Payout Ratio',
+        text: 'Year Over Year Dividend Growth Rate',
         font: {size: 16, weight: 400, family: 'Poppins'},
         color: '#3a3a3a'
       },
@@ -58,7 +58,6 @@ export default function PayoutChart({props}) {
     },
   };
   
-  
   const labels = yAxisLabels;
   
   const data = {
@@ -67,10 +66,12 @@ export default function PayoutChart({props}) {
       {
         label: '%',
         data: dataSet,
-        backgroundColor: '#e63462',
+        backgroundColor: '#333745',
       }
     ],
   };
+  
+
   return (
     <>
       <Bar options={options} data={data} />

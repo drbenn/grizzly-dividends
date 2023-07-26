@@ -44,8 +44,6 @@ export const tickerSlice = createSlice({
   initialState,
   reducers: {
     addTicker: (state, action: PayloadAction<any>) => {
-      console.log("THIS WORKS?");
-      
       const current = {...state};
       const tickers = current.tickers
       if (!tickers) {

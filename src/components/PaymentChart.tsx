@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { useState } from 'react'
 import './summarydashboard.scss'
 import {
   Chart as ChartJS,
@@ -14,28 +13,18 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale,LinearScale, BarElement, Title, Tooltip, Legend);
 
 
 
 
 export default function PaymentChart({props}) { 
-  
-
-  let yAxisLabels = [];
-  let dataSet = []
+  const yAxisLabels: number[] = [];
+  const dataSet: number[] = []
   props.forEach((item) => {
     yAxisLabels.unshift(item.year)
     dataSet.unshift(Number(item.total_annual_dividend).toFixed(2))
   })
-  
   
   const options = {
     plugins: {
@@ -82,7 +71,7 @@ export default function PaymentChart({props}) {
       {
         label: '$',
         data: dataSet,
-        backgroundColor: 'rgb(120,245,160,0.8)',
+        backgroundColor: '#c7efcf',
       }
     ],
   };

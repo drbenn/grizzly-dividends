@@ -41,8 +41,6 @@
   margin-top: 2rem;
 }
 
-
-
 .chart-flex {
   display: flex;
   flex-direction: row;
@@ -57,14 +55,17 @@
   margin: 4rem 0.5rem 2rem 0.5rem;
 }
 
-.payout-ratio-history-chart {
+.annual-growth-history-chart {
   width: clamp(25rem, 50vw, 50rem);
   height: clamp(20rem, 35vw, 25rem);
   margin: 0.5rem;
 }
 
-
-
+.payout-ratio-history-chart {
+  width: clamp(25rem, 50vw, 50rem);
+  height: clamp(20rem, 35vw, 25rem);
+  margin: 0.5rem;
+}
 
 .back-button {
   position: absolute;

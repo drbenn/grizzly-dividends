@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useState, useEffect } from 'react'
 import './tickersearchbar.scss'
+import { useState, useEffect } from 'react'
 import { addTicker } from '../redux/tickerSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
@@ -13,7 +13,6 @@ export default function TickerSearchBar() {
   const dispatch = useDispatch();
   const searchTickersFromState = useSelector((state: RootState) => state.store.navSearchTickers);
   const [searchTicker, setSearchTicker] = useState('');
-  const [searchInputValue, setSearchInputValue] = useState('');
   const [searchTickerBank, setSearchTickerBank] = useState<SearchTickers[]>();
   const [chartColors,setChartColors] = useState(['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099', '#3B3EAC', '#0099C6', '#D47', '#6A0', '#B82E2E', '#316395', '#949', '#2A9', '#AA1', '#63C', '#E67300', '#8B0707', '#329262', '#5574A6', '#651067'])
 
@@ -31,15 +30,12 @@ export default function TickerSearchBar() {
     setSearchTicker(searchTerm);
   }
   
-  const inputStyle = {
+  const inputStyle: object = {
     "textTransform": 'uppercase',
   }
 
   useEffect(() => {
-    console.log("useEffect searchbar Run and add search tickers to nav-state");
     setSearchTickerBank(searchTickersFromState);
-    // console.log(searchTickersFromState);
-    
   }, [searchTickersFromState]);
   return (
     <>
@@ -57,29 +53,22 @@ export default function TickerSearchBar() {
             />
           </div>
           <div className='dropdown'>
-        {searchTickerBank?.filter((item) => {
-
-          const searchTerm: string = searchTicker?.toLowerCase();
-          const ticker: string = item.ticker.toLowerCase();
-          return searchTerm && ticker.startsWith(searchTerm) && ticker !== searchTerm
-        }).slice(0,10)
-        .map((item) => {
-            return (
-              <div onClick={()=>onSearch(item.ticker)}className='dropdown-row'>{item.ticker} - {item.name}</div>
+            {searchTickerBank?.filter((item) => {
+              const searchTerm: string = searchTicker?.toLowerCase();
+              const ticker: string = item.ticker.toLowerCase();
+              return searchTerm && ticker.startsWith(searchTerm) && ticker !== searchTerm
+            }).slice(0,10)
+            .map((item) => {
+                return (
+                  <div key={Math.random()} onClick={()=>onSearch(item.ticker)}className='dropdown-row'>{item.ticker} - {item.name}</div>
             )})}
-      </div>
-
+          </div>
 
         </div>
-
-
         <div>
           <button className='add-button' onClick={handleAddTicker}>Add Ticker</button>
         </div>
-        
       </div>
-
-
         {/* {chartColors.map((item) => {
           return (
             <div className='color-test' style={{backgroundColor:`${item}`}}
@@ -94,9 +83,6 @@ export default function TickerSearchBar() {
             {item}
           </div>
         )})} */}
-
-
- 
     </>
   )
 }

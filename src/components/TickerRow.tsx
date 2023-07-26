@@ -10,11 +10,9 @@ import './tickerrow.scss'
 import { removeTicker, removeTickerData, updateDeepDiveTicker, updateProfileTickers, updateTickerAmount } from '../redux/tickerSlice'
 import { useDispatch } from 'react-redux'
 import info from '/info.png'
-
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/perspective-subtle.css';
-import DeepDive from './DeepDive'
 import { useNavigate } from 'react-router-dom'
 import { TickerAmount } from '../types'
 
@@ -44,15 +42,11 @@ export default function TickerRow({...props}) {
 
 
   const handleRemoveTicker = () => {
-    // console.log("handle Removing Ticker")
     dispatch(removeTicker(props?.props["ticker"]))
     dispatch(removeTickerData(props?.props["ticker"]))
   }
 
   const handleDeepDiveTicker = () => {
-    // console.log("handle/update Deep Dive ticker")
-    // const ticker: string = props?.props["ticker"];
-    // const investAmount: number = Number(amount);
     dispatch(updateDeepDiveTicker(props?.props))
     navigate("/detail")  
   }
@@ -64,7 +58,6 @@ export default function TickerRow({...props}) {
     console.log(`handle row amount changed: ${ticker} / ${investAmount}`);
     const tickerAmount: TickerAmount = {ticker: ticker, amount:investAmount};
     dispatch(updateTickerAmount(tickerAmount))
-    
   }
 
   const yieldFormat = (num: number) => {
@@ -81,21 +74,17 @@ export default function TickerRow({...props}) {
   }
 
   const frequencyFormat = (obj: any) => {
-    // console.log(obj);
     let frequency: string = '';
     let months: string = '';
     if (obj.ttm_dividend_payment_count === 4) {
       frequency = 'Q';
       if (obj.dividend_payment_months.includes('Mar')) {
-        // months = '(Mar,Jun,Sep,Dec)';
         months = '(M,J,S,D)';
       }
       if (obj.dividend_payment_months.includes('Feb')) {
-        // months = '(Feb,May,Aug,Nov)';
         months = '(F,M,A,N)';
       }
       if (obj.dividend_payment_months.includes('Jan')) {
-        // months = '(Jan,Apr,Jul,Oct)';
         months = '(J,A,J,O)';
       }      
     }
@@ -180,7 +169,6 @@ export default function TickerRow({...props}) {
               <div className='months-info'>(J,A,J,O) = (Jan,Apr,Jul,Oct)</div>    
               <div className='months-info'>(F,M,A,N) = (Feb,May,Aug,Nov)</div>
               <div className='months-info'>(M,J,S,D) = (Mar,Jun,Sep,Dec)</div>        
-
               </div>}>
           <img 
             src={info}         
@@ -191,7 +179,6 @@ export default function TickerRow({...props}) {
         </div>
         <div className='cell-detail'>
           {frequencyFormat(props?.props["dividend_payment_months_and_count"])}
-
         </div>
       </div>
       <div className='cell'>
@@ -211,24 +198,21 @@ export default function TickerRow({...props}) {
         </div>
       </div>
       <div className='chart-cell'>
-        {/* <div className='cell-title'>
-          Detail
-        </div> */}
         <div className='more-detail-cell'>
-        <img 
-              src={detailIcon}         
-              alt={'More Stock Information'}
-              onClick={handleDeepDiveTicker}
-            />
+          <img 
+            src={detailIcon}         
+            alt={'More Stock Information'}
+            onClick={handleDeepDiveTicker}
+          />
         </div>
       </div>
       <div className='close-cell'>
-      <div className='close-detail-cell'>
-        <img 
-              src={close}         
-              alt={'Remove Ticker'}
-              onClick={handleRemoveTicker}
-            />
+        <div className='close-detail-cell'>
+          <img 
+            src={close}         
+            alt={'Remove Ticker'}
+            onClick={handleRemoveTicker}
+          />
         </div>
       </div>
 

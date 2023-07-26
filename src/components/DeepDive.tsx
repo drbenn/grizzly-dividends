@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import PaymentChart from './PaymentChart';
 import PayoutChart from './PayoutChart';
+import GrowthChart from './GrowthChart';
 import { useNavigate } from 'react-router-dom';
 import { TickerDetail } from '../types';
 import DeepDiveMetrics from './DeepDiveMetrics';
@@ -37,7 +38,7 @@ export default function DeepDive() {
   
   useEffect(() => {
     setTicker(deepDiveData["ticker"]);
-    setData(deepDiveData)
+    setData(deepDiveData)   
 
     if (ticker) {
       const FINNHUB_API_KEY = import.meta.env.VITE_FINNHUB_API_KEY
@@ -84,6 +85,9 @@ export default function DeepDive() {
       <div className='chart-flex'>
         <div className='annual-dividend-history-chart'>
           <PaymentChart props={data.annual_dividend}/>
+        </div>
+        <div className='annual-growth-history-chart'>
+          <GrowthChart props={data.annual_dividend}/>
         </div>
         <div className='payout-ratio-history-chart'>
           <PayoutChart props={data.payout_ratios}/>
