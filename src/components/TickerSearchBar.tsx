@@ -19,7 +19,8 @@ export default function TickerSearchBar() {
   const chartColors2 = ['#70d6ff','#ff70a6','#ff9770','#ffd670','#e9ff70','#333745','#e63462','#fe5f55','#c7efcf','#eef5db', '#70d6ffbf','#ff70a6bf','#ff9770bf','#ffd670bf','#e9ff70bf','#333745bf','#e63462bf','#fe5f55bf','#c7efcfbf','#eef5dbbf', '#70d6ff80','#ff70a680','#ff977080','#ffd67080','#e9ff7080','#33374580','#e6346280','#fe5f5580','#c7efcf80','#eef5db80']
 
   function handleAddTicker() {
-    dispatch(addTicker(searchTicker.toUpperCase()))
+    dispatch(addTicker(searchTicker.toUpperCase()));
+    setSearchTicker('');
   }
 
   function handleSearchInput(value:string) {

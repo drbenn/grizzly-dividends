@@ -87,7 +87,7 @@ export default function SummaryDashboard() {
       y: {
         stacked: true,
         grid: {
-          color: 'white'
+          color: 'rgb(220, 220, 220, 0.8)'
         },
         border: {
           color: '#3a3a3a'
@@ -250,7 +250,7 @@ export default function SummaryDashboard() {
             <div className='total-title'>
               Blended Yield: <span className='metric-number'>
               {blendedRateDisplay}
-              %
+              {blendedRateDisplay !== '' && <span>%</span>}
             </span>
             </div>
             {/* <div className='metric-number'>

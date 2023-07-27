@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../redux/tickerSlice';
+import { toast } from 'react-toastify';
+
+const toastMessage = (message:string) => toast(message);
 
 export default function Register() {
   const navigate = useNavigate();
@@ -17,8 +20,6 @@ export default function Register() {
     const email: string = event.target[1].value;
     const password: string = event.target[2].value;
     const confirmPassword: string = event.target[3].value;
-    console.log('Verify passwords to register, also verify email does not aleady exist in users');
-    console.log('email: ', email, ' password: ', password, ' password confirmation: ', confirmPassword);
     password === confirmPassword ? console.log('Resgistering new user...') : alert('Password and confirm password values do not match, please reenter your password');
     const userData = {
       "username": username,
@@ -27,7 +28,7 @@ export default function Register() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/register', {
+      const response = await fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -37,11 +38,13 @@ export default function Register() {
       
       // Handle the response from the server as needed
       if (response.ok) {
-        console.log('User registration successful!');    
+        // console.log('User registration successful!');    
+        toastMessage(`You are now registered ${username}! Welcome!`)
         dispatch(userLogin(true));  
         navigate("/portfolio")    
       } else {       
-        console.error('User registration failed.');
+        toastMessage(`Username or email is already registered. Please try another registration.`)
+        // console.error('User registration failed.');
       }
     } catch (error) {
       console.error('Error:', error);

@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import home1 from '/home1.png'
+import home2 from '/home2.png'
 
 export default function Home() {
 
@@ -8,11 +10,28 @@ export default function Home() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 3 }}
+      transition={{ duration: 1 }}
     >
-      <h1>Home</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, veniam. Voluptatem recusandae molestias quis quidem vel aspernatur quibusdam debitis vitae?</p>    
-    
+      <div className='home-text'>Visualize Dividend Portfolio Returns</div>
+      <div className='home-subtext'>
+        See the income of your dividend stocks based on invested amount and the blended total return rate.
+      </div>
+      <div className='home-img'>
+        <img 
+          src={home1}         
+          alt={'Portfolio Preview'}
+        />
+      </div>
+      <div className='home-text'>Deep Dive the Details</div>
+      <div className='home-subtext'>
+        Quickly view crucial metrics for long term dividend performance.
+      </div>
+      <div className='home-img'>
+        <img 
+          src={home2}         
+          alt={'Deep Dive Preview'}
+        />
+      </div>
     </motion.div>
   )
 }

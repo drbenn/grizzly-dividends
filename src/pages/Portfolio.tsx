@@ -33,6 +33,7 @@ export default function Portfolio() {
   const [tickerData, setTickerData] = useState<TickerDetail[]>([]);
   const [tickersToast, setTickersToast] = useState<string[]>([]);
   const [tickerCount, setTickerCount] = useState<number>(0);
+  const [allDataShown, setAllDataShown] = useState<boolean>(false)
   
 
 
@@ -66,38 +67,69 @@ export default function Portfolio() {
   // }
   // if (!portfolioTickers) return null; // prevents page render until state data is available
 
+  function tickersToFetchFilter(tickers: string[]) {
+    // console.log(`tickers in tickers to fetch func: ${tickers}`);
+    // console.log("tickerdata to check against thats already loaded/iterated over in page");
+    // console.log(tickerData);
+    const newTickersToFetch: string[] = []; //
+    tickers.forEach((ticker)=> {
+      // console.log(ticker);
+      const found = tickerData.find((obj) => obj.ticker === ticker)
+      if (!found) {newTickersToFetch.push(ticker)}
+      // console.log("FOUND");
+      // console.log(found);
+      
+      
+      
+    })
+    // console.log('newTickersToFetch');
+    // console.log(newTickersToFetch);
+    
+    
+    return tickers // TODO: still need to fix
+    
+  }
+
   useEffect(() => {
     console.log(portfolioTickers); 
     setTickerCount(portfolioTickers.length);
     if (portfolioTickers.length > 0) {
-      console.log("useEffect Run");
-      fetch("http://localhost:5000/dataquery", {
+      console.log(`tickers in dataQuery ${portfolioTickers}`);
+      const newTickersToFetch = tickersToFetchFilter(portfolioTickers);
+
+
+
+      fetch("http://localhost:3000/dataquery", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(portfolioTickers)
+        body: JSON.stringify(newTickersToFetch)
       }).then(
         res => res.json()
       ).then(
         data => {
         // console.log("portfolio data response");
-        // console.log(data);
-        if (!data.length) {
+        const jsonData = JSON.parse(data["data"])
+        console.log(jsonData);
+        if (!jsonData.length) {
           toastMessage(`Ticker not available, search for a different ticker`);
         }
-        if (data.length) {
+        if (jsonData.length) {
+          console.log(jsonData);
+          
           // const retrievedNames = tickerNamesForToast(data);
-          setTickerData(data);
-          data.forEach(item => {
+          setTickerData([...jsonData]);
+          jsonData.forEach(item => {
             if (!tickersToast.includes(item.ticker)) {
               toastMessage(`${item.ticker} added`)
-              handleAddTickerData(data);
+              handleAddTickerData(jsonData);
               setTickersToast([...tickersToast, item.ticker])
             }
           });
         }
       })
+      portfolioTickers.length === tickerData.length ? setAllDataShown(true) : setAllDataShown(false)
     } 
   }, [portfolioTickers]);
 

@@ -49,7 +49,7 @@ export default function GrowthChart({props}) {
       y: {
         stacked: true,
         grid: {
-          color: 'white'
+          color: 'rgb(220, 220, 220, 0.8)'
         },
         border: {
           color: '#3a3a3a'

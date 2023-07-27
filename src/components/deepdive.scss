@@ -23,11 +23,11 @@
   padding: 1rem;
   img {
     width: 100%;
-    transition: 400ms ease-in;
+    transition: 100ms ease-in;
   }
   img:hover {
     filter: brightness(90%);
-    transition: 400ms ease-in;
+    transition: 100ms ease-in;
   }
 }
 
@@ -64,14 +64,14 @@
 .payout-ratio-history-chart {
   width: clamp(25rem, 50vw, 50rem);
   height: clamp(20rem, 35vw, 25rem);
-  margin: 0.5rem;
+  margin: 0.5rem 0.5rem 8rem 0.5rem;
 }
 
 .back-button {
   position: absolute;
   width: 3rem;
-  top: 8rem;
-  left: 2rem;
+  top: 1rem;
+  left: -6.2rem;
   img {
     width: 100%;
     transition: 150ms ease-in;

@@ -160,7 +160,7 @@ export default function TickerRow({...props}) {
           <Tippy 
             placement={'top'} 
             arrow={true}
-            animation={'perspective-subtle'} 
+            // animation={'perspective-subtle'} 
             duration={400}
             content={<div className="info-container">
               <div className="title-info">Frequency of Dividend Payments</div>

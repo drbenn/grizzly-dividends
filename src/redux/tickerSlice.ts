@@ -90,18 +90,13 @@ export const tickerSlice = createSlice({
       return {...state, tickerData: state.tickerData.filter((ticker) => ticker["ticker"] !== action.payload)}
     },
     addTickerData: (state, action: PayloadAction<TickerDetail[]>) => {
+      // state.tickerData = [...state.tickerData, action.payload];
       return {
         ...state,
         tickerData: 
           action.payload
       }
-      // return {
-      //   ...state,
-      //   tickerData: [
-      //     action.payload,
-      //     ...state.tickerData,
-      //   ]
-      // }
+
     },
     updateTickerAmount: (state, action: PayloadAction<TickerAmount>) => {
       return {

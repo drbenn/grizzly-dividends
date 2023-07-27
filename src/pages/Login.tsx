@@ -6,6 +6,9 @@ import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userLogin } from '../redux/tickerSlice';
+import { toast } from 'react-toastify';
+
+const toastMessage = (message:string) => toast(message);
 
 export default function Login() {
   const navigate = useNavigate();
@@ -19,15 +22,13 @@ export default function Login() {
     console.log(event.target[0].value);
     const username: string = event.target[0].value;
     const password: string = event.target[1].value;
-    console.log('Send login to server to authenticate');
-    console.log('username: ', username, ' password: ', password);
     const userData = {
       "username": username,
       "password": password
     }
 
     try {
-      const response = await fetch('http://localhost:5000/login', {
+      const response = await fetch('http://localhost:3000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -37,11 +38,13 @@ export default function Login() {
       
       // Handle the response from the server as needed
       if (response.ok) {
-        console.log('User login successful!');
+        // console.log('User login successful!');
+        toastMessage(`Welcome ${username}!!!`)
         // TODO: GET USER DATA After successful login  
         dispatch(userLogin(true));  
         navigate("/portfolio")    
       } else {       
+        toastMessage(`Login failed. Please re-enter username and password`)
         console.error('User login failed.');
       }
     } catch (error) {

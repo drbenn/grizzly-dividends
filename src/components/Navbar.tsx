@@ -29,27 +29,23 @@ export default function Navbar() {
   }
 
   const handleLogoutClick = () => {
-    alert("User logging out...");
+    // alert("User logging out...");
     setIsLoggedIn(false);
     dispatch(userLogout(false));
   }
     
-  useEffect(() => {
-    console.log(`Nav is logged in: ${isLoggedIn}`);
-    console.log(isUserLoggedInState);
-    
-    
+  useEffect(() => {  
     setIsLoggedIn(isUserLoggedInState);
     if (!areSearchTickersReceived) {
-      fetch("http://localhost:5000/searchtickers", {
+      fetch("http://localhost:3000/searchtickers", {
         method: 'GET'
       }).then(
         res => res.json()
       ).then(
-        data => {
-          const dataToSearchTickers: SearchTickers[] = data.map((item:[string,string]) => {
-            return {"ticker": item[0], "name":item[1]}
-          })
+        data => {          
+          const dataToSearchTickers: SearchTickers[] = data.map((item:{ticker:string, name: string}) => {
+            return {"ticker": item.ticker, "name":item.name}
+          })          
           dataToSearchTickers.sort((a,b) => a.ticker.localeCompare(b.ticker) );
           dispatch(addSearchTickers(dataToSearchTickers));
           if (dataToSearchTickers.length > 0) {

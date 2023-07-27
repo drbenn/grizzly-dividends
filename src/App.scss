@@ -26,6 +26,7 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  position: relative;
 }
 
 .page-title {
@@ -78,4 +79,39 @@ body {
 .submit-button:hover {
   background-color: $dark-2;
   transition: 150ms background-color ease-in;
+}
+
+.home-text {
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: $dark-2;
+  margin: 5rem 0rem 0rem 0rem;
+  cursor: default;
+}
+
+.home-subtext {
+  width: clamp(30rem, 20rem + 30vw, 55rem);
+  margin: 2rem 0rem;;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: $dark-2;
+  cursor: default;
+}
+
+
+
+.home-img {
+  width: 75%;
+  overflow: hidden;
+  img {
+    width: 100%;
+    border-radius: 10rem;
+    cursor: default;
+    transition: 200ms ease-in;
+  }
+  img:hover {
+    background-color: $nav-underline-color;
+    transition: 200ms ease-in;
+    transform: scale(1.03) translate(0,2rem);
+  }
 }
