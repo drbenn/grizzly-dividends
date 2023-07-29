@@ -40,7 +40,7 @@ export default function Register() {
       if (response.ok) {
         // console.log('User registration successful!');    
         toastMessage(`You are now registered ${username}! Welcome!`)
-        dispatch(userLogin(true));  
+        dispatch(userLogin({"loggedIn":true, "username": username}));  
         navigate("/portfolio")    
       } else {       
         toastMessage(`Username or email is already registered. Please try another registration.`)

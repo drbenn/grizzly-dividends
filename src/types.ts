@@ -73,3 +73,8 @@ export type TickerDetail = {
   annual_dividend: AnnualDividend[];
   amount?: number;
 }
+
+export type User = {
+  loggedIn: boolean; 
+  username: string
+}

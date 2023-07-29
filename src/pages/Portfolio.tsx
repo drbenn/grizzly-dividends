@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -90,12 +91,22 @@ export default function Portfolio() {
     
   }
 
+  function transformJsonData(data: any) {
+    const mappedJson = data.map(item => ({
+      ...item,
+       annual_dividends: JSON.parse(item.annual_dividends),
+       dividend_payment_months_and_count: JSON.parse(item.dividend_payment_months_and_count),
+       payout_ratios: JSON.parse(item.payout_ratios)
+      }))
+    return mappedJson;
+  }
+
   useEffect(() => {
     console.log(portfolioTickers); 
     setTickerCount(portfolioTickers.length);
     if (portfolioTickers.length > 0) {
       console.log(`tickers in dataQuery ${portfolioTickers}`);
-      const newTickersToFetch = tickersToFetchFilter(portfolioTickers);
+      // const newTickersToFetch = tickersToFetchFilter(portfolioTickers);
 
 
 
@@ -104,26 +115,23 @@ export default function Portfolio() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newTickersToFetch)
+        body: JSON.stringify(portfolioTickers)
       }).then(
         res => res.json()
       ).then(
         data => {
-        // console.log("portfolio data response");
         const jsonData = JSON.parse(data["data"])
-        console.log(jsonData);
-        if (!jsonData.length) {
+        const mappedJsonData = transformJsonData(jsonData)
+        if (!mappedJsonData.length) {
           toastMessage(`Ticker not available, search for a different ticker`);
         }
-        if (jsonData.length) {
-          console.log(jsonData);
-          
+        if (mappedJsonData.length) {
           // const retrievedNames = tickerNamesForToast(data);
-          setTickerData([...jsonData]);
-          jsonData.forEach(item => {
+          setTickerData([...mappedJsonData]);
+          mappedJsonData.forEach(item => {
             if (!tickersToast.includes(item.ticker)) {
               toastMessage(`${item.ticker} added`)
-              handleAddTickerData(jsonData);
+              handleAddTickerData(mappedJsonData);
               setTickersToast([...tickersToast, item.ticker])
             }
           });

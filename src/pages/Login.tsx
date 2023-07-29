@@ -41,7 +41,7 @@ export default function Login() {
         // console.log('User login successful!');
         toastMessage(`Welcome ${username}!!!`)
         // TODO: GET USER DATA After successful login  
-        dispatch(userLogin(true));  
+        dispatch(userLogin({"loggedIn":true, "username": username}));  
         navigate("/portfolio")    
       } else {       
         toastMessage(`Login failed. Please re-enter username and password`)

@@ -9,7 +9,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../redux/store'
 import {  toast } from 'react-toastify';
-import { SearchTickers, TickerAmount, TickerDetail } from '../types';
+import { SearchTickers, TickerAmount, TickerDetail, User } from '../types';
 
 export interface DeepDiveTicker {
   "ticker": string,
@@ -36,17 +36,17 @@ const initialState: TickerState = {
   // profileTickers: [{ticker: "HD", amount: 2000}, {ticker: "LAND", amount: 1300}]
 }
 
-
 const toastMessage = (message:string) => toast(message);
 
 export const tickerSlice = createSlice({
   name: 'tickers',
   initialState,
   reducers: {
-    userLogin: (state, action: PayloadAction<boolean>) => {
+    userLogin: (state, action: PayloadAction<User>) => {
       return {
         ...state,
-        isLoggedIn: action.payload
+        isLoggedIn: action.payload["loggedIn"],
+        username: action.payload["username"]
       }
     },
     userLogout: (state, action: PayloadAction<boolean>) => {

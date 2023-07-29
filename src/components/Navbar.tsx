@@ -20,9 +20,11 @@ import { RootState } from '../redux/store'
 export default function Navbar() {
   const dispatch = useDispatch();
   const isUserLoggedInState = useSelector((state: RootState) => state.store.isLoggedIn);
+  const loggedInUser = useSelector((state: RootState) => state.store.username);
   const [showNavbar, setShowNavbar] = useState(false);
   const [areSearchTickersReceived, setAreSearchTickersReceived] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>('');
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar)
@@ -36,6 +38,7 @@ export default function Navbar() {
     
   useEffect(() => {  
     setIsLoggedIn(isUserLoggedInState);
+    setUsername(loggedInUser)
     if (!areSearchTickersReceived) {
       fetch("http://localhost:3000/searchtickers", {
         method: 'GET'
@@ -54,7 +57,7 @@ export default function Navbar() {
       })
     }
 
-  }, [isUserLoggedInState, isLoggedIn]);
+  }, [isUserLoggedInState, isLoggedIn, loggedInUser]);
 
 
   return (
@@ -117,6 +120,11 @@ export default function Navbar() {
                   />
                 </div>
               </div>
+            </li>
+            }
+            {isLoggedIn &&
+            <li className='login-user-icon'>
+              D - {username}
             </li>
             }
           </ul>
