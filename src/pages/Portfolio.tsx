@@ -120,8 +120,10 @@ export default function Portfolio() {
         res => res.json()
       ).then(
         data => {
-        const jsonData = JSON.parse(data["data"])
-        const mappedJsonData = transformJsonData(jsonData)
+        const jsonData = JSON.parse(data["data"]);
+        const mappedJsonData = transformJsonData(jsonData);
+        console.log(mappedJsonData);
+        
         if (!mappedJsonData.length) {
           toastMessage(`Ticker not available, search for a different ticker`);
         }

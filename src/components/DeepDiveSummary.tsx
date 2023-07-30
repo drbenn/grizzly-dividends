@@ -12,11 +12,12 @@ import './deepdivesummary.scss'
 import bigBear from '/big-bear.png'
 
 
-export default function DeepDiveSummary(props) { 
+export default function DeepDiveSummary(props) {  
   const data = props.data;
   const currentPrice = props.currentPrice;
   const currentHi = props.currentHi;
   const currentLo = props.currentLo;
+  
   const formatWebsite = (url: string) => {
     let returnString: string = url;
     if (url.indexOf("www.")) {
@@ -51,7 +52,7 @@ export default function DeepDiveSummary(props) {
     <div className='summary-items'>
       <div className='summary-title'>{ data.ticker } - { data.name }</div>
       <div>{ data.industry }</div>
-      <div><a href={ data.website }>{formatWebsite(data.website)}</a></div>
+      <div><a href={ data.website } target="_blank">{formatWebsite(data.website)}</a></div>
       <div>Current Price: ${currentPrice }</div>
       <div>Year High: ${ compareHiPrice(Number(data.year_price_high)) }</div>
       <div>Year Low: ${ compareLoPrice(Number(data.year_price_low)) }</div>

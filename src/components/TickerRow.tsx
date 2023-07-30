@@ -47,7 +47,9 @@ export default function TickerRow({...props}) {
   }
 
   const handleDeepDiveTicker = () => {
-    dispatch(updateDeepDiveTicker(props?.props))
+    const detailProps = {ticker: props.props.ticker, data: props.props}
+    
+    dispatch(updateDeepDiveTicker(detailProps))
     navigate("/detail")  
   }
 

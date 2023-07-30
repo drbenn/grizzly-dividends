@@ -38,9 +38,9 @@ export default function DeepDive() {
   
   useEffect(() => {
     setTicker(deepDiveData["ticker"]);
-    setData(deepDiveData)   
+    setData(deepDiveData["data"])   
 
-    if (ticker) {
+    if (ticker) {     
       const FINNHUB_API_KEY = import.meta.env.VITE_FINNHUB_API_KEY
       fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${FINNHUB_API_KEY}`).then(
         (res) => res.json()).then(
@@ -51,7 +51,7 @@ export default function DeepDive() {
           }      
       )
     }
-  }, [ticker, currentPrice, currentHi, currentLo]);
+  }, [ticker, deepDiveData]);
 
   if (!data) return null; // prevents page render until state data is available
 
@@ -84,10 +84,10 @@ export default function DeepDive() {
 
       <div className='chart-flex'>
         <div className='annual-dividend-history-chart'>
-          <PaymentChart props={data.annual_dividend}/>
+          <PaymentChart props={data.annual_dividends}/>
         </div>
         <div className='annual-growth-history-chart'>
-          <GrowthChart props={data.annual_dividend}/>
+          <GrowthChart props={data.annual_dividends}/>
         </div>
         <div className='payout-ratio-history-chart'>
           <PayoutChart props={data.payout_ratios}/>

@@ -21,8 +21,6 @@ ChartJS.register(CategoryScale,LinearScale, BarElement, Title, Tooltip, Legend);
 export default function PaymentChart({props}) { 
   const yAxisLabels: number[] = [];
   const dataSet: number[] = []
-  console.log(props);
-  
   props.forEach((item) => {
     yAxisLabels.unshift(item.year)
     dataSet.unshift(Number(item.total_annual_dividend).toFixed(2))
