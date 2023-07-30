@@ -124,7 +124,7 @@ export default function Navbar() {
             }
             {isLoggedIn &&
             <li className='login-user-icon'>
-              D - {username}
+              {username.slice(0,1).toUpperCase()}
             </li>
             }
           </ul>
