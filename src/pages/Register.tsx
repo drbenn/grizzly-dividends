@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { motion } from "framer-motion";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../redux/tickerSlice';
 import { toast } from 'react-toastify';
+import { registerPath } from '../paths';
 
 const toastMessage = (message:string) => toast(message);
 
@@ -12,10 +15,6 @@ export default function Register() {
   const dispatch = useDispatch();
   const handleSubmitRegistration: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    const formData: FormData = new FormData(event.currentTarget);
-    // for (const [key, value] of formData.entries()) {
-    //   console.log(key, value);
-    // }
     const username: string = event.target[0].value;
     const email: string = event.target[1].value;
     const password: string = event.target[2].value;
@@ -28,7 +27,7 @@ export default function Register() {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/register', {
+      const response = await fetch(registerPath, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -41,7 +40,7 @@ export default function Register() {
         // console.log('User registration successful!');    
         toastMessage(`You are now registered ${username}! Welcome!`)
         dispatch(userLogin({"loggedIn":true, "username": username}));  
-        navigate("/portfolio")    
+        navigate("/grizzly/portfolio")    
       } else {       
         toastMessage(`Username or email is already registered. Please try another registration.`)
         // console.error('User registration failed.');

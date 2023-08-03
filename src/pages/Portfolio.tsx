@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -8,24 +9,24 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import TickerRow from '../components/TickerRow';
 import TickerSearchBar from '../components/TickerSearchBar';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProfileTicker, addTickerData } from '../redux/tickerSlice'
+import { addTickerData } from '../redux/tickerSlice'
 import { RootState } from '../redux/store';
 import {  toast } from 'react-toastify';
 import SummaryDashboard from '../components/summaryDashboard';
-import DeepDive from '../components/DeepDive';
 import { TickerDetail } from '../types';
+import { dataQueryPath } from '../paths';
 
-interface user {
-  map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
-  name: string;
-  email: string;
-  phone: number;
-}
+// interface user {
+//   map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
+//   name: string;
+//   email: string;
+//   phone: number;
+// }
 
 export default function Portfolio() {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function Portfolio() {
   const [tickerData, setTickerData] = useState<TickerDetail[]>([]);
   const [tickersToast, setTickersToast] = useState<string[]>([]);
   const [tickerCount, setTickerCount] = useState<number>(0);
-  const [allDataShown, setAllDataShown] = useState<boolean>(false)
+  // const [allDataShown, setAllDataShown] = useState<boolean>(false)
   
 
 
@@ -68,28 +69,28 @@ export default function Portfolio() {
   // }
   // if (!portfolioTickers) return null; // prevents page render until state data is available
 
-  function tickersToFetchFilter(tickers: string[]) {
-    // console.log(`tickers in tickers to fetch func: ${tickers}`);
-    // console.log("tickerdata to check against thats already loaded/iterated over in page");
-    // console.log(tickerData);
-    const newTickersToFetch: string[] = []; //
-    tickers.forEach((ticker)=> {
-      // console.log(ticker);
-      const found = tickerData.find((obj) => obj.ticker === ticker)
-      if (!found) {newTickersToFetch.push(ticker)}
-      // console.log("FOUND");
-      // console.log(found);
+  // function tickersToFetchFilter(tickers: string[]) {
+  //   // console.log(`tickers in tickers to fetch func: ${tickers}`);
+  //   // console.log("tickerdata to check against thats already loaded/iterated over in page");
+  //   // console.log(tickerData);
+  //   const newTickersToFetch: string[] = []; //
+  //   tickers.forEach((ticker)=> {
+  //     // console.log(ticker);
+  //     const found = tickerData.find((obj) => obj.ticker === ticker)
+  //     if (!found) {newTickersToFetch.push(ticker)}
+  //     // console.log("FOUND");
+  //     // console.log(found);
       
       
       
-    })
-    // console.log('newTickersToFetch');
-    // console.log(newTickersToFetch);
+  //   })
+  //   // console.log('newTickersToFetch');
+  //   // console.log(newTickersToFetch);
     
     
-    return tickers // TODO: still need to fix
+  //   return tickers // TODO: still need to fix
     
-  }
+  // }
 
   function transformJsonData(data: any) {
     const mappedJson = data.map(item => ({
@@ -110,7 +111,7 @@ export default function Portfolio() {
 
 
 
-      fetch("http://localhost:3000/dataquery", {
+      fetch(dataQueryPath, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -139,7 +140,7 @@ export default function Portfolio() {
           });
         }
       })
-      portfolioTickers.length === tickerData.length ? setAllDataShown(true) : setAllDataShown(false)
+      // portfolioTickers.length === tickerData.length ? setAllDataShown(true) : setAllDataShown(false)
     } 
   }, [portfolioTickers]);
 

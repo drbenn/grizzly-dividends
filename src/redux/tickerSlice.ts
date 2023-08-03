@@ -6,8 +6,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { useSelector } from 'react-redux'
-import type { RootState } from '../redux/store'
 import {  toast } from 'react-toastify';
 import { SearchTickers, TickerAmount, TickerDetail, User } from '../types';
 
@@ -113,10 +111,6 @@ export const tickerSlice = createSlice({
     },
     // TODO - removeTickerData - activate at same time as removeTicker
     updateDeepDiveTicker: (state, action: PayloadAction<any>) => {
-      // state.deepDiveTicker.ticker = action.payload.ticker;
-      // state.deepDiveTicker.amount = action.payload.amount;
-      const current = {...state};
-      const deepDive = current.deepDiveTicker
       return {
         ...state,
         deepDiveTicker: action.payload

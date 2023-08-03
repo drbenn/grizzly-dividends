@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
@@ -7,7 +8,7 @@ import { useState, useEffect } from 'react'
 import detailIcon from '/line-chart.png'
 import close from '/close.png'
 import './tickerrow.scss'
-import { removeTicker, removeTickerData, updateDeepDiveTicker, updateProfileTickers, updateTickerAmount } from '../redux/tickerSlice'
+import { removeTicker, removeTickerData, updateDeepDiveTicker, updateTickerAmount } from '../redux/tickerSlice'
 import { useDispatch } from 'react-redux'
 import info from '/info.png'
 import Tippy from '@tippyjs/react';
@@ -26,7 +27,7 @@ export default function TickerRow({...props}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [divYield, setDivYield] = useState(2)
-  const [amount, setAmount] = useState('1000')
+  const [amount, setAmount] = useState<any>('1000')
   const [annualDividend, setAnnualDividend] = useState(0)
   
   useEffect(() => { 
@@ -35,8 +36,8 @@ export default function TickerRow({...props}) {
     // console.log('USE EFFECT in ROW');
     const newAnnualDividend = Number(amount) * divYield;
     setAnnualDividend(newAnnualDividend)
-    const ticker: string = props?.props["ticker"];
-    const investAmount: number = Number(amount);
+    // const ticker: string = props?.props["ticker"];
+    // const investAmount: number = Number(amount);
     // dispatch(updateProfileTickers({"ticker":ticker, "amount": investAmount}))
   }, [amount, divYield])
 
@@ -50,7 +51,7 @@ export default function TickerRow({...props}) {
     const detailProps = {ticker: props.props.ticker, data: props.props}
     
     dispatch(updateDeepDiveTicker(detailProps))
-    navigate("/detail")  
+    navigate("/grizzly/detail")  
   }
 
   const handleAmountChange = (value: string) => {

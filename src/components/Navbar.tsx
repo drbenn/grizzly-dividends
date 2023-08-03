@@ -14,6 +14,7 @@ import { SearchTickers } from '../types'
 import { addSearchTickers, userLogout } from '../redux/tickerSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
+import { searchTickersPath } from '../paths'
 // import logo from '/logo.svg'
 
 
@@ -40,7 +41,7 @@ export default function Navbar() {
     setIsLoggedIn(isUserLoggedInState);
     setUsername(loggedInUser)
     if (!areSearchTickersReceived) {
-      fetch("http://localhost:3000/searchtickers", {
+      fetch(searchTickersPath, {
         method: 'GET'
       }).then(
         res => res.json()
@@ -64,7 +65,7 @@ export default function Navbar() {
     <nav className="navbar">
         
         <div className='nav-logo-container'>
-        <NavLink to="/">
+        <NavLink to="/grizzly">
           <div className="logo">
           <img 
             src={logo}         
@@ -93,16 +94,16 @@ export default function Navbar() {
         <div className={`nav-elements  ${showNavbar ? 'active' : ''}`}>
           <ul>
             <li>
-              <NavLink to="/portfolio">Portfolio</NavLink>
+              <NavLink to="/grizzly/portfolio">Portfolio</NavLink>
             </li>
             {!isLoggedIn && 
             <li>
-              <NavLink to="/register">Register</NavLink>
+              <NavLink to="/grizzly/register">Register</NavLink>
             </li>
             }
             {!isLoggedIn &&
             <li>
-              <NavLink to="/login">Log In</NavLink>
+              <NavLink to="/grizzly/login">Log In</NavLink>
             </li>           
             }
             {isLoggedIn &&

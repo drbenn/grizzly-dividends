@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import './summarydashboard.scss'
 import {
   Chart as ChartJS,
@@ -18,10 +22,10 @@ export default function PayoutChart({props}) {
   const dataSet: number[] = []
   props.forEach((item) => {
     yAxisLabels.unshift(item.year)
-    dataSet.unshift(Number(item.payout_ratio * 100).toFixed(2))
+    dataSet.unshift(Number(Number(item.payout_ratio * 100).toFixed(2)))
   })
 
-  const options = {
+  const options: any = {
     plugins: {
       title: {
         display: true,

@@ -1,12 +1,12 @@
-
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userLogin } from '../redux/tickerSlice';
 import { toast } from 'react-toastify';
+import { loginPath } from '../paths';
 
 const toastMessage = (message:string) => toast(message);
 
@@ -14,12 +14,7 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSubmitLogin: React.FormEventHandler<HTMLFormElement> = async (event) => {
-    const formData: FormData = new FormData(event.currentTarget);
     event.preventDefault();
-    // for (const [key, value] of formData.entries()) {
-    //   console.log(key, value);
-    // }
-    console.log(event.target[0].value);
     const username: string = event.target[0].value;
     const password: string = event.target[1].value;
     const userData = {
@@ -28,7 +23,7 @@ export default function Login() {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch(loginPath, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -42,7 +37,7 @@ export default function Login() {
         toastMessage(`Welcome ${username}!!!`)
         // TODO: GET USER DATA After successful login  
         dispatch(userLogin({"loggedIn":true, "username": username}));  
-        navigate("/portfolio")    
+        navigate("/grizzly/portfolio")    
       } else {       
         toastMessage(`Login failed. Please re-enter username and password`)
         console.error('User login failed.');

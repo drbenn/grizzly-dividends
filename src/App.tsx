@@ -19,11 +19,11 @@ function App() {
       <Navbar />
       <AnimatePresence mode="wait">
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='portfolio' element={<Portfolio />} />
-          <Route path='detail' element={<Detail />} />
-          <Route path='register' element={<Register />} />
-          <Route path='login' element={<Login />} />
+          <Route path='/grizzly' element={<Home />} />
+          <Route path='/grizzly/portfolio' element={<Portfolio />} />
+          <Route path='/grizzly/detail' element={<Detail />} />
+          <Route path='/grizzly/register' element={<Register />} />
+          <Route path='/grizzly/login' element={<Login />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </AnimatePresence>

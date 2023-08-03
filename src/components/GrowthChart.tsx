@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -17,11 +19,11 @@ export default function GrowthChart({props}) {
   const dataSet: number[] = []
   props.forEach((item) => {
     yAxisLabels.unshift(item.year)
-    dataSet.unshift(Number(item.yoy_linear_growth_rate * 100).toFixed(2))
+    dataSet.unshift(Number(Number(item.yoy_linear_growth_rate * 100).toFixed(2)))
   })
   
   
-  const options = {
+  const options: any = {
     plugins: {
       title: {
         display: true,

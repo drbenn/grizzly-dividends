@@ -82,10 +82,11 @@ body {
 }
 
 .home-text {
-  font-size: 3.5rem;
-  font-weight: 600;
+  font-size: 4.55rem;
+  font-weight: 700;
   color: $dark-2;
-  margin: 5rem 0rem 0rem 0rem;
+  text-align: center;
+  margin: 8rem 0rem 0rem 0rem;
   cursor: default;
 }
 
@@ -103,15 +104,18 @@ body {
 .home-img {
   width: 75%;
   overflow: hidden;
+  margin-bottom: 6rem;
   img {
-    width: 100%;
-    border-radius: 10rem;
+    width: 99%;
+    // border-radius: 10rem;
+    // border: 2px solid black;
     cursor: default;
-    transition: 200ms ease-in;
+    transition: 150ms ease-in;
   }
   img:hover {
     background-color: $nav-underline-color;
-    transition: 200ms ease-in;
-    transform: scale(1.03) translate(0,2rem);
+    transition: 150ms ease-in;
+    transform: scale(1.02) translate(0,2rem);
+    filter: hue-rotate(200deg);
   }
 }

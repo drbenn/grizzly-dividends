@@ -12,9 +12,9 @@ export default function Home() {
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
     >
-      <div className='home-text'>Visualize Dividend Portfolio Returns</div>
+      <div className='home-text'>Visualize Dividend Returns</div>
       <div className='home-subtext'>
-        See the income of your dividend stocks based on invested amount and the blended total return rate.
+        See the income of your dividend stocks based on invested amount and the blended total return rate
       </div>
       <div className='home-img'>
         <img 
@@ -22,9 +22,9 @@ export default function Home() {
           alt={'Portfolio Preview'}
         />
       </div>
-      <div className='home-text'>Deep Dive the Details</div>
+      <div className='home-text'>Deep Dive Details</div>
       <div className='home-subtext'>
-        Quickly view crucial metrics for long term dividend performance.
+        Quickly view crucial metrics for long term dividend performance
       </div>
       <div className='home-img'>
         <img 

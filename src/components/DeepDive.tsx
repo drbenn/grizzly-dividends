@@ -33,7 +33,7 @@ export default function DeepDive() {
   const [data, setData] = useState<TickerDetail>();
 
   const handleBack = () => {
-    navigate("/portfolio")  
+    navigate("/grizzly/portfolio")  
   }
   
   useEffect(() => {

@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -21,7 +25,7 @@ export default function SummaryDashboard() {
   const [blendedRateDisplay, setBlendedRateDisplay] = useState('')
 
   const [totalSimpleInvestDisplay, setTotalSimpleInvestDisplay] = useState(0);
-  const [simpleAnnualDividends, setSimpleAnnualDividends] = useState();
+  const [simpleAnnualDividends, setSimpleAnnualDividends] = useState<any>();
   const [simpleBlendedRate, setSimpleBlendedRate] = useState('');
 
   const [totalDripInvestDisplay, setTotalDripInvestDisplay] = useState(0);
@@ -225,7 +229,7 @@ export default function SummaryDashboard() {
     const megaDripBlendedRate = ((Number(megaDripTenYrIncome)/Number(totalInvest))/10).toFixed(4)
     setTotaMegaDripInvestDisplay(totalInvest)
     setMegaDripAnnualDividends(megaDripTenYrIncome);
-    setMegaDripBlendedRate(isNaN(megaDripBlendedRate) ? '' : formatPercent(megaDripBlendedRate));
+    setMegaDripBlendedRate(isNaN(Number(megaDripBlendedRate)) ? '' : formatPercent(Number(megaDripBlendedRate)));
     setChartOptions({"title": '10 Years of DRIP'})
     return megaDripReturn;
   }
