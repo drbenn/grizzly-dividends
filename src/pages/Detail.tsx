@@ -12,7 +12,6 @@ export default function Detail() {
       transition={{ duration: 3 }}
     >
     <DeepDive />
-    
     </motion.div>
   )
 }

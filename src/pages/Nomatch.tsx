@@ -11,7 +11,6 @@ export default function NoMatch() {
       transition={{ duration: 3 }}
     >
       <p>The url entered does not exist. Please select an available link from the navbar.</p>    
-    
     </motion.div>
   )
 }

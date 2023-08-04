@@ -33,7 +33,6 @@ export default function Home() {
           alt={'Deep Dive Preview'}
         />
       </div>
-      <Footer></Footer>
     </motion.div>
   )
 }

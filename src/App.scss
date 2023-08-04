@@ -12,6 +12,10 @@ body {
   color: $text;
 }
 
+.router-view-height {
+  min-height: 70vh;
+}
+
 .container {
   max-width: 80%;
   margin: 0 auto;
@@ -98,7 +102,7 @@ body {
   min-width: 20rem;
   overflow: hidden;
   margin-bottom: 6rem;
-  box-shadow: 2px 2px 60px #6363632a;
+  box-shadow: $box-shadow;
   img {
     width: 99%;
     cursor: default;
@@ -115,7 +119,8 @@ body {
 footer {
   height: 15rem;
   margin-top: 12rem;
-  width: 98.5vw;
+  width: 100%;
+  overflow-x: hidden;
   color: $light-text;
   font-size: 1.2rem;
   font-weight: 700;

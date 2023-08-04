@@ -20,6 +20,7 @@ import {  toast } from 'react-toastify';
 import SummaryDashboard from '../components/summaryDashboard';
 import { TickerDetail } from '../types';
 import { dataQueryPath } from '../paths';
+import Footer from '../components/Footer';
 
 // interface user {
 //   map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
@@ -170,8 +171,6 @@ export default function Portfolio() {
       <TickerRow key={Math.random()} props={item}></TickerRow>  
       </motion.div>    
     ))}
-
-
     </motion.div>
   )
 }

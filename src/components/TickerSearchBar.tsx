@@ -58,7 +58,7 @@ export default function TickerSearchBar() {
             {searchTickerBank?.filter((item) => {
               const searchTerm: string = searchTicker?.toLowerCase();
               const ticker: string = item.ticker.toLowerCase();
-              return searchTerm && ticker.startsWith(searchTerm) && ticker !== searchTerm
+              return searchTerm && ticker.startsWith(searchTerm)
             }).slice(0,10)
             .map((item) => {
                 return (

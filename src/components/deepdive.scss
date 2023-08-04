@@ -50,21 +50,46 @@
 }
 
 .annual-dividend-history-chart {
-  width: clamp(25rem, 50vw, 50rem);
-  height: clamp(20rem, 35vw, 25rem);
-  margin: 4rem 0.5rem 2rem 0.5rem;
+  width: clamp(25rem, 50vw, 30rem);
+  height: clamp(12.5rem, 35vw, 15rem);
+  margin: 4rem 0rem 2rem 0rem;
+  // height: fit-content;
+  // width: fit-content;
+  padding: 2rem 2.5rem 2rem 2rem;
+  border-radius: 0.1rem;
+  box-shadow: $box-shadow;
+  transition: 100ms ease-in-out;
 }
 
+
+
 .annual-growth-history-chart {
-  width: clamp(25rem, 50vw, 50rem);
-  height: clamp(20rem, 35vw, 25rem);
-  margin: 0.5rem;
+  width: clamp(25rem, 50vw, 30rem);
+  height: clamp(12.5rem, 35vw, 15rem);
+  margin: 1rem 0rem;
+  // height: fit-content;
+  // width: fit-content;
+  padding: 2rem 2.5rem 2rem 2rem;
+  border-radius: 0.1rem;
+  box-shadow: $box-shadow;
+  transition: 100ms ease-in-out;
 }
 
 .payout-ratio-history-chart {
-  width: clamp(25rem, 50vw, 50rem);
-  height: clamp(20rem, 35vw, 25rem);
-  margin: 0.5rem 0.5rem 8rem 0.5rem;
+  width: clamp(25rem, 50vw, 30rem);
+  height: clamp(12.5rem, 35vw, 15rem);
+  margin: 1rem 0rem;
+  // height: fit-content;
+  // width: fit-content;
+  padding: 2rem 2.5rem 2rem 2rem;
+  border-radius: 0.1rem;
+  box-shadow: $box-shadow;
+  transition: 100ms ease-in-out;
+}
+
+.annual-dividend-history-chart:hover, .annual-growth-history-chart:hover, .payout-ratio-history-chart:hover {
+  box-shadow: $box-shadow-hover;
+  transition: 100ms ease-in-out;
 }
 
 .back-button {

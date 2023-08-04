@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Navbar from './components/Navbar'
 import NoMatch from './pages/Nomatch'
 import Detail from './pages/Detail';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <>
       <Navbar />
       <AnimatePresence mode="wait">
+      <div className='router-view-height'>
         <Routes>
           <Route path='/grizzly' element={<Home />} />
           <Route path='/grizzly/portfolio' element={<Portfolio />} />
@@ -26,6 +28,8 @@ function App() {
           <Route path='/grizzly/login' element={<Login />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
+      </div>
+      <Footer/>
       </AnimatePresence>
       <ToastContainer
         position="top-right"
