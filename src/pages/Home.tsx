@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import home1 from '/home1.png'
 import home2 from '/home2.png'
+import Footer from '../components/Footer';
 
 export default function Home() {
 
@@ -32,6 +33,7 @@ export default function Home() {
           alt={'Deep Dive Preview'}
         />
       </div>
+      <Footer></Footer>
     </motion.div>
   )
 }

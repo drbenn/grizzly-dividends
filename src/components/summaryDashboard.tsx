@@ -16,7 +16,6 @@ import { ChartJsSummaryData, SummaryChart, TickerDetail } from '../types';
 
 ChartJS.register(CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend);
 
-
 export default function SummaryDashboard() { 
   const stateData: TickerDetail[] = useSelector((state: RootState) => state.store.tickerData);
   const [chartData, setChartData] = useState<ChartJsSummaryData[]>();
@@ -31,7 +30,7 @@ export default function SummaryDashboard() {
   const [totalDripInvestDisplay, setTotalDripInvestDisplay] = useState(0);
   const [dripAnnualDividends, setDripAnnualDividends] = useState(0);
   const [dripBlendedRate, setDripBlendedRate] = useState('');
-  
+
   const [totalMegaDripInvestDisplay, setTotaMegaDripInvestDisplay] = useState(0);
   const [megaDripAnnualDividends, setMegaDripAnnualDividends] = useState(0);
   const [megaDripBlendedRate, setMegaDripBlendedRate] = useState('');
@@ -40,7 +39,6 @@ export default function SummaryDashboard() {
   const chartColors2 = ['#70d6ff','#ff70a6','#ff9770','#ffd670','#e9ff70','#333745','#e63462','#fe5f55','#c7efcf','#eef5db', '#70d6ffbf','#ff70a6bf','#ff9770bf','#ffd670bf','#e9ff70bf','#333745bf','#e63462bf','#fe5f55bf','#c7efcfbf','#eef5dbbf', '#70d6ff80','#ff70a680','#ff977080','#ffd67080','#e9ff7080','#33374580','#e6346280','#fe5f5580','#c7efcf80','#eef5db80']
 
   useEffect(() => {
-    // console.log(stateData);
     const dataWithAmounts: TickerDetail[] = stateData.map((item) => {     
       const amount: number = item.amount ? item.amount : 1000;
       return {...item, amount: amount};
@@ -62,12 +60,7 @@ export default function SummaryDashboard() {
       displayData = getMegaDripDataSeries(chartData)
       setBlendedRateDisplay(megaDripBlendedRate)
     }
-    // if (totalSimpleInvestDisplay === 0 || totalDripInvestDisplay === 0 || totalMegaDripInvestDisplay === 0 ) {
-    //   setBlendedRateDisplay('');
-    // }
-
     setChartData(displayData);
-
   }, [stateData, chartSelected, blendedRateDisplay]);
 
   const options = {
@@ -238,65 +231,50 @@ export default function SummaryDashboard() {
   
   return (
     <>
-    {/* {totalSimpleInvestDisplay > 0 && */}
-
-    <div className='button-and-dash-column'>
-      <div className='button-group'>
-        <button onClick={() => handleChartSelection("simple")} className='chart-type-button'>Simple</button>
-        <button onClick={() => handleChartSelection("drip")} className='chart-type-button'>DRIP</button>
-        <button onClick={() => handleChartSelection("megadrip")} className='chart-type-button'>DRIP(10)</button>
-      </div>
-      <div className='dash-container'>
-        <div className='metric-container'>
-
-
-          <div className='blended-yield-box'>
-            <div className='total-title'>
-              Blended Yield: <span className='metric-number'>
-              {blendedRateDisplay}
-              {blendedRateDisplay !== '' && <span>%</span>}
-            </span>
-            </div>
-            {/* <div className='metric-number'>
-              {blendedRateDisplay}
-              %
-            </div> */}
-          </div>
-
-          <div className='annual-income-box'>
-            <div className='total-title'>
-              Annual Dividends: ${chartSelected === 'simple' && new Intl.NumberFormat('en-US').format(simpleAnnualDividends) }
-              {chartSelected === 'drip' && new Intl.NumberFormat('en-US').format(dripAnnualDividends) }
-              {chartSelected === 'megadrip' && new Intl.NumberFormat('en-US').format(megaDripAnnualDividends) }
-            </div>
-            {/* <div className='metric-number'>
-              $
-              {chartSelected === 'simple' && new Intl.NumberFormat('en-US').format(simpleAnnualDividends) }
-              {chartSelected === 'drip' && new Intl.NumberFormat('en-US').format(dripAnnualDividends) }
-              {chartSelected === 'megadrip' && new Intl.NumberFormat('en-US').format(megaDripAnnualDividends) }
-            </div> */}
-          </div>
-
-          <div className='total-invested-box'>
-            <div className='total-title'>
-              Total Investment: ${chartSelected === 'simple' && new Intl.NumberFormat('en-US').format(totalSimpleInvestDisplay) }
-              {chartSelected === 'drip' && new Intl.NumberFormat('en-US').format(totalDripInvestDisplay) }
-              {chartSelected === 'megadrip' && new Intl.NumberFormat('en-US').format(totalMegaDripInvestDisplay) }
-            </div>
-            {/* <div className='metric-number'>
-              $
-              {chartSelected === 'simple' && new Intl.NumberFormat('en-US').format(totalSimpleInvestDisplay) }
-              {chartSelected === 'drip' && new Intl.NumberFormat('en-US').format(totalDripInvestDisplay) }
-              {chartSelected === 'megadrip' && new Intl.NumberFormat('en-US').format(totalMegaDripInvestDisplay) }
-            </div> */}
-          </div>
-
+    {/* { totalSimpleInvestDisplay > 0 || totalDripInvestDisplay > 0 || totalMegaDripInvestDisplay > 0 && */}
+      <div className='button-and-dash-column'>
+        <div className='button-group'>
+          <button onClick={() => handleChartSelection("simple")} className='chart-type-button'>Simple</button>
+          <button onClick={() => handleChartSelection("drip")} className='chart-type-button'>DRIP</button>
+          <button onClick={() => handleChartSelection("megadrip")} className='chart-type-button'>DRIP(10)</button>
         </div>
-        <div className='summary-chart-container'>
-          <Bar options={options} data={data} />
+        <div className='dash-container'>
+          <div className='metric-container'>
+
+
+            <div className='blended-yield-box'>
+              <div className='total-title'>
+                Blended Yield: &nbsp;&nbsp;<span className='metric-number'>
+                {blendedRateDisplay}
+                {blendedRateDisplay !== '' && <span>%</span>}
+              </span>
+              </div>
+            </div>
+
+            <div className='annual-income-box'>
+              <div className='total-title'>
+                {chartSelected !== "megadrip" && <span>Annual Dividends:&nbsp;&nbsp;</span>}
+                {chartSelected === "megadrip" && <span>10 Years of Dividends:&nbsp;&nbsp;</span>}
+                ${chartSelected === 'simple' && new Intl.NumberFormat('en-US').format(simpleAnnualDividends) }
+                {chartSelected === 'drip' && new Intl.NumberFormat('en-US').format(dripAnnualDividends) }
+                {chartSelected === 'megadrip' && new Intl.NumberFormat('en-US').format(megaDripAnnualDividends) }
+              </div>
+            </div>
+
+            <div className='total-invested-box'>
+              <div className='total-title'>
+                Total Investment:&nbsp;&nbsp;${chartSelected === 'simple' && new Intl.NumberFormat('en-US').format(totalSimpleInvestDisplay) }
+                {chartSelected === 'drip' && new Intl.NumberFormat('en-US').format(totalDripInvestDisplay) }
+                {chartSelected === 'megadrip' && new Intl.NumberFormat('en-US').format(totalMegaDripInvestDisplay) }
+              </div>
+            </div>
+
+          </div>
+          <div className='summary-chart-container'>
+            <Bar options={options} data={data} />
+          </div>
         </div>
       </div>
-    </div>
     {/* } */}
     </>
   )

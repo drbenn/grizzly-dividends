@@ -5,7 +5,7 @@
 
 Actual
 
-** npm i @reduxjs/toolkit framer-motion react-redux react-router-dom uuid @types/react-redux @types/react-router-dom @types/uuid
+** npm i @reduxjs/toolkit framer-motion react-redux react-router-dom @types/react-redux @types/react-router-dom
 
 
 # Deploy on namecheap
