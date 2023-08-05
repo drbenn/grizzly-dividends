@@ -26,6 +26,10 @@
 .dropdown {
   background-color: white;
   width: clamp(14.8rem, 5rem + 21.2vw, 20.8rem);
+  max-height: 20rem;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scroll-behavior: smooth scroll;
   display: flex;
   flex-direction: column;
   border: 1px solid grey;
@@ -51,7 +55,20 @@
 
 input {
   width: 220px;
+  transition: 150ms ease-in;
 }
+
+input:hover {
+  border: 1px solid $ticker-color;
+  transition: 150ms ease-in;
+}
+
+input:active {
+  border: 1px solid rgb(255, 234, 0);
+  transition: 150ms ease-in;
+  box-shadow: $box-shadow-hover;
+}
+
 
 .search-inner {
   display: flex;

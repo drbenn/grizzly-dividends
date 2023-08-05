@@ -184,22 +184,22 @@ export default function TickerRow({...props}) {
           {frequencyFormat(props?.props["dividend_payment_months_and_count"])}
         </div>
       </div>
-      <div className='cell'>
+      {/* <div className='cell'>
         <div className='cell-title'>
         5 Yr CAGR
         </div>
         <div className='cell-detail'>
         {fiveYrCagrFormat(props?.props["five_year_cagr"])}%
         </div>
-      </div>
-      <div className='cell'>
+      </div> */}
+      {/* <div className='cell'>
         <div className='cell-title'>
           Growth
         </div>
         <div className='cell-detail'>
         {props?.props["years_dividend_growth"]} Yrs
         </div>
-      </div>
+      </div> */}
       <div className='chart-cell'>
         <div className='more-detail-cell'>
           <img 

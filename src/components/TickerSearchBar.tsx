@@ -59,7 +59,8 @@ export default function TickerSearchBar() {
               const searchTerm: string = searchTicker?.toLowerCase();
               const ticker: string = item.ticker.toLowerCase();
               return searchTerm && ticker.startsWith(searchTerm)
-            }).slice(0,10)
+            })
+            // .slice(0,10)
             .map((item) => {
                 return (
                   <div key={Math.random()} onClick={()=>onSearch(item.ticker)}className='dropdown-row'>{item.ticker} - {item.name}</div>

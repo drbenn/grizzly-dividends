@@ -78,16 +78,19 @@ export default function SummaryDashboard() {
           color: 'white'
         },
         border: {
-          color: '#3a3a3a'
+          // color: '#3a3a3a'
+          color: 'transparent'
         }
       },
       y: {
         stacked: true,
         grid: {
-          color: 'rgb(220, 220, 220, 0.8)'
+          // color: 'rgb(220, 220, 220, 0.8)'
+          color: 'rgb(220, 220, 220, 0.5)'
         },
         border: {
-          color: '#3a3a3a'
+          // color: '#3a3a3a'
+          color: 'transparent'
         }
       },
     },
@@ -231,7 +234,7 @@ export default function SummaryDashboard() {
   
   return (
     <>
-    {/* { totalSimpleInvestDisplay > 0 || totalDripInvestDisplay > 0 || totalMegaDripInvestDisplay > 0 && */}
+    { stateData.length > 0 &&
       <div className='button-and-dash-column'>
         <div className='button-group'>
           <button onClick={() => handleChartSelection("simple")} className='chart-type-button'>Simple</button>
@@ -275,7 +278,7 @@ export default function SummaryDashboard() {
           </div>
         </div>
       </div>
-    {/* } */}
+     }
     </>
   )
 }
