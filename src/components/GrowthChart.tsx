@@ -45,7 +45,8 @@ export default function GrowthChart({props}) {
           color: 'white'
         },
         border: {
-          color: '#3a3a3a'
+          // color: '#3a3a3a'
+          color: "transparent"
         }
       },
       y: {
@@ -54,7 +55,8 @@ export default function GrowthChart({props}) {
           color: 'rgb(220, 220, 220, 0.8)'
         },
         border: {
-          color: '#3a3a3a'
+          // color: '#3a3a3a'
+          color: "transparent"
         }
       },
     },

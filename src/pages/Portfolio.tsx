@@ -20,7 +20,7 @@ import {  toast } from 'react-toastify';
 import SummaryDashboard from '../components/summaryDashboard';
 import { TickerDetail } from '../types';
 import { dataQueryPath } from '../paths';
-import Footer from '../components/Footer';
+
 
 // interface user {
 //   map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
@@ -41,7 +41,30 @@ export default function Portfolio() {
 
 
   function handleAddTickerData(data:TickerDetail[]) {
-    dispatch(addTickerData(data))
+    // console.log("1st tickerData");
+    // console.log(tickerData);
+    // console.log("is ticker already in tickerData?");
+    let previouslyListed: boolean = false;
+    tickerData.forEach(item => {
+      if (item.ticker === data[0].ticker) {
+        previouslyListed = true;
+      }   
+    })
+    if (!previouslyListed) {
+      // console.log("NOT LISTED");
+      // console.log(data);
+      
+      // TODO: addTickerData should only update/add new tickers in state to maintain current tickers added which may have custom amounts entered other than the $1k default
+      dispatch(addTickerData(data))
+      setTickerData([...data]);
+    }
+    
+    
+    
+
+
+    // console.log("2nd tickerData");
+    // console.log(tickerData);
     // console.log(data);
     // data.forEach((item) => {
     //   const profileTicker = {"ticker": item.ticker, "amount":1000};
@@ -131,7 +154,7 @@ export default function Portfolio() {
         }
         if (mappedJsonData.length) {
           // const retrievedNames = tickerNamesForToast(data);
-          setTickerData([...mappedJsonData]);
+          
           mappedJsonData.forEach(item => {
             if (!tickersToast.includes(item.ticker)) {
               toastMessage(`${item.ticker} added`)

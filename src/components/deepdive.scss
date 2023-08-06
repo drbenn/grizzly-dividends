@@ -15,6 +15,9 @@
   flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: flex-end;
+  width: 90%;
+  box-shadow: $box-shadow;
+  padding: 1rem 0rem;
 }
 
 .logo-container {
@@ -38,7 +41,10 @@
   justify-content: center;
   align-items: flex-start;
   width: clamp(15rem, 50vw , 50rem);
-  margin-top: 2rem;
+  margin-top: 4rem;
+  box-shadow: $box-shadow;
+  width: 90%;
+  padding: 3rem 0rem;
 }
 
 .chart-flex {
@@ -47,6 +53,8 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  // border: 1px solid red;
+  width: 150%;
 }
 
 .annual-dividend-history-chart {
